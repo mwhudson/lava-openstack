@@ -16,7 +16,7 @@ export OS_TENANT_NAME=admin
 export OS_REGION_NAME=RegionOne
 export OS_AUTH_URL=${OS_AUTH_PROTOCOL:-http}://`juju-deployer -f keystone`:5000/v2.0
 
-wget http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
+wget --progress=dot -e dotbytes=10M http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
 mkdir uec
 cd uec
 tar xfz ../linaro-minimal-arm64-uec-psci.tar.gz
