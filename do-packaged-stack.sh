@@ -17,7 +17,7 @@ sudo -u ubuntu ssh ubuntu@compute01 true
 sudo -u ubuntu ssh ubuntu@controller01 true
 
 if [ `lava-role` = "controller" ]; then
-    apt-get install -y juju-core juju-deployer
+    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient
     sudo -u ubuntu PATH=$PATH ./do-packaged-stack-controller.sh
 fi
 
