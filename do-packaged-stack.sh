@@ -13,7 +13,7 @@ chmod 0700 ~ubuntu/.ssh
 
 lava-sync ssh-done
 
-if [ $(lava-group bootstrap | wc -l) != 1 ]; then
+if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
     echo "There should be exactly one bootstrap node!"
     exit 1
 fi
