@@ -17,7 +17,7 @@ sudo -u ubuntu ssh ubuntu@compute01 true
 sudo -u ubuntu ssh ubuntu@controller01 true
 
 if [ `lava-role` = "controller" ]; then
-    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient
+    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
     sed -e 's/^USE_LXC_BRIDGE="true"/USE_LXC_BRIDGE="false"/' -i /etc/default/lxc-net
     service lxc-net restart
 
