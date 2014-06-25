@@ -1,7 +1,7 @@
 #!/bin/bash -x
 # This runs as root.
 mkdir -p ~ubuntu/.ssh
-cp /opt/lava-scripts/id_rsa* ~ubuntu/.ssh
+cp id_rsa* ~ubuntu/.ssh
 cat ~ubuntu/.ssh/id_rsa.pub >> ~ubuntu/.ssh/authorized_keys
 cat >> ~ubuntu/.ssh/config <<EOF
 StrictHostKeyChecking no
