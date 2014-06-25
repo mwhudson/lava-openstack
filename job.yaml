@@ -42,8 +42,7 @@ actions:
   - command: lava_test_shell
     parameters:
       testdef_repos:
-        - git-repo: http://github.com/mwhudson/lava-deploy-job
-          testdef: splat.yaml
+        - git-repo: http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-deploy-cloudimg.git
           parameters:
             LAVA_CLOUD_IMG_URL: 'http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-arm64-disk1.img'
       timeout: 900
@@ -78,8 +77,7 @@ actions:
   - command: lava_test_shell
     parameters:
       testdef_repos:
-        - git-repo: http://github.com/mwhudson/lava-deploy-job
-          testdef: packaged-stack.yaml
+        - git-repo: http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-openstack-juju.git
           parameters:
             LAVA_RUN_TEMPEST: 'yes'
             LAVA_SLEEP_FOR_ACCESS: 'no'
