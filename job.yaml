@@ -1,8 +1,8 @@
 device_group:
-  - role: controller
+  - role: bootstrap
     count: 1
     device_type: mustang
-  - role: compute
+  - role: machine
     count: 1
     device_type: mustang
 

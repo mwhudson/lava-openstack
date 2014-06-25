@@ -2,10 +2,13 @@
 # This runs as ubuntu.
 
 mkdir ~/.juju
-cp ./environments.yaml ~/.juju
+sed -e "s/@BOOTSTRAP_IP@/$BOOTSTRAP_IP/" ./environments.yaml > ~/.juju/environments.yaml
 cp ./minimal-juju-deploy.yaml ~
 juju bootstrap
-juju add-machine ssh:compute01
+
+for machine_ip in $MACHINE_IPS; do
+    juju add-machine ssh:$machine_ip
+done
 
 cd
 juju-deployer -e manual -c minimal-juju-deploy.yaml

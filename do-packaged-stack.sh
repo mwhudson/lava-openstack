@@ -13,10 +13,23 @@ chmod 0700 ~ubuntu/.ssh
 
 lava-sync ssh-done
 
-sudo -u ubuntu ssh ubuntu@compute01 true
-sudo -u ubuntu ssh ubuntu@controller01 true
+if [ $(lava-group bootstrap | wc -l) != 1 ]; then
+    echo "There should be exactly one bootstrap node!"
+    exit 1
+fi
 
-if [ `lava-role` = "controller" ]; then
+export BOOTSTRAP_IP=$(lava-network query $(lava-group boostrap) ipv4)
+export MACHINE_IPS=
+for host in $(lava-group machine); do
+    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host)"
+done
+
+sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
+for machine_ip in $MACHINE_IPS; do
+    sudo -u ubuntu ssh ubuntu@$machine_ip true
+done
+
+if [ `lava-role` = "bootstrap" ]; then
     apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
     sed -e 's/^USE_LXC_BRIDGE="true"/USE_LXC_BRIDGE="false"/' -i /etc/default/lxc-net
     service lxc-net restart

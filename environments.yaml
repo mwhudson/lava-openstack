@@ -2,5 +2,5 @@ default: manual
 environments:
   manual:
     type: manual
-    bootstrap-host: controller01
+    bootstrap-host: @CONTROLLERIP@
     bootstrap-user: ubuntu
