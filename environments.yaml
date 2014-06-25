@@ -1,0 +1,6 @@
+default: manual
+environments:
+  manual:
+    type: manual
+    bootstrap-host: controller01
+    bootstrap-user: ubuntu
