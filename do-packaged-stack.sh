@@ -48,7 +48,7 @@ iface lxcbr0 inet dhcp
 bridge_ports eth0
 EOF
     ifup eth0 lxcbr0
-    sudo -u ubuntu PATH=$PATH ./do-packaged-stack-controller.sh
+    sudo -u ubuntu -E ./do-packaged-stack-controller.sh
 fi
 
 if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
