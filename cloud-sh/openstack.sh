@@ -30,7 +30,7 @@ unitAddress()
 
 unitMachine()
 {
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"machine\"]" 2> /dev/null
+	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"gunits\"][\"$1/$2\"][\"machine\"]" 2> /dev/null
 }
 
 waitForMachine()
@@ -51,23 +51,16 @@ waitForService()
 	done
 }
 
-juju bootstrap
-waitForMachine 0
-
-juju add-machine --constraints "cpu-cores=$CORES mem=4G"
 juju deploy --config config.yaml --constraints "cpu-cores=$CORES mem=1G" quantum-gateway
 juju deploy --constraints "cpu-cores=$CORES mem=2G root-disk=20G" nova-compute
 
-waitForMachine 1
-juju scp lxc-network.sh 1:
-juju run --machine 1 "sudo ./lxc-network.sh"
-juju deploy --config config.yaml --to lxc:1 mysql
-juju deploy --to lxc:1 rabbitmq-server
-juju deploy --config config.yaml --to lxc:1 keystone
-juju deploy --config config.yaml --to lxc:1 nova-cloud-controller
-#juju deploy --to lxc:1 cinder
-juju deploy --to lxc:1 glance
-juju deploy --to lxc:1 openstack-dashboard
+juju deploy --config config.yaml --to lxc:0 mysql
+juju deploy --to lxc:0 rabbitmq-server
+juju deploy --config config.yaml --to lxc:0 keystone
+juju deploy --config config.yaml --to lxc:0 nova-cloud-controller
+#juju deploy --to lxc:0 cinder
+juju deploy --to lxc:0 glance
+juju deploy --to lxc:0 openstack-dashboard
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
