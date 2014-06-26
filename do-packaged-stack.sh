@@ -24,7 +24,7 @@ fi
 export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
 export MACHINE_IPS=
 for host in $(lava-group machine); do
-    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host)" ipv4
+    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host) ipv4"
 done
 
 sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
