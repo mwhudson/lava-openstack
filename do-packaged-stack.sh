@@ -21,10 +21,10 @@ if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
     exit 1
 fi
 
-export BOOTSTRAP_IP=$(lava-network query $(lava-group boostrap) ipv4)
+export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
 export MACHINE_IPS=
 for host in $(lava-group machine); do
-    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host)"
+    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host)" ipv4
 done
 
 sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
