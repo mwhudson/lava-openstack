@@ -2,7 +2,7 @@
 # This runs as ubuntu.
 
 mkdir ~/.juju
-sed -e "s/@BOOTSTRAP_IP@/$BOOTSTRAP_IP/" ./environments.yaml > ~/.juju/environments.yaml
+sed -e "s/@BOOTSTRAP_IP@/$BOOTSTRAP_IP/" ./environments.yaml | tee ~/.juju/environments.yaml
 cp ./minimal-juju-deploy.yaml ~
 juju bootstrap
 

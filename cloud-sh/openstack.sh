@@ -51,8 +51,8 @@ waitForService()
 	done
 }
 
-juju deploy --config config.yaml --constraints "cpu-cores=$CORES mem=1G" quantum-gateway
-juju deploy --constraints "cpu-cores=$CORES mem=2G root-disk=20G" nova-compute
+juju deploy --config config.yaml quantum-gateway
+juju deploy  nova-compute
 
 juju deploy --config config.yaml --to lxc:0 mysql
 juju deploy --to lxc:0 rabbitmq-server
