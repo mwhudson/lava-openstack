@@ -88,7 +88,9 @@ juju add-relation glance keystone
 
 waitForService rabbitmq-server nova-cloud-controller glance quantum-gateway nova-compute
 # no official way of knowing when relation hooks have fired
-sleep 120
+juju status
+sleep 600
+juju status
 
 # correct quantum networking for 1 nic
 machine=$(unitMachine quantum-gateway 0)
