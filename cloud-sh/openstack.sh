@@ -60,7 +60,7 @@ juju deploy --config config.yaml --to lxc:0 keystone
 juju deploy --config config.yaml --to lxc:0 nova-cloud-controller
 #juju deploy --to lxc:0 cinder
 juju deploy --to lxc:0 glance
-juju deploy --to lxc:0 openstack-dashboard
+#juju deploy --to lxc:0 openstack-dashboard
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
@@ -84,9 +84,9 @@ juju add-relation nova-compute glance
 juju add-relation nova-compute nova-cloud-controller
 juju add-relation glance mysql
 juju add-relation glance keystone
-juju add-relation openstack-dashboard keystone
+#juju add-relation openstack-dashboard keystone
 
-waitForService rabbitmq-server nova-cloud-controller glance openstack-dashboard quantum-gateway nova-compute
+waitForService rabbitmq-server nova-cloud-controller glance quantum-gateway nova-compute
 # no official way of knowing when relation hooks have fired
 sleep 120
 
