@@ -30,7 +30,7 @@ unitAddress()
 
 unitMachine()
 {
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"gunits\"][\"$1/$2\"][\"machine\"]" 2> /dev/null
+	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"machine\"]" 2> /dev/null
 }
 
 waitForMachine()
