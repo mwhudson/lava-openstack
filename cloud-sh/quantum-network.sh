@@ -1,5 +1,8 @@
-#!/bin/sh -e
+#!/bin/sh -xe
 
+exec > /dev/ttyS0
+
+apt-get install -y openvswitch-switch
 ifdown eth0
 ovs-vsctl add-port br-ex eth0
 mac=$(ifconfig eth0 | grep -E -o "HWaddr [a-z0-9:]+" | sed -e "s/^HWaddr //")
