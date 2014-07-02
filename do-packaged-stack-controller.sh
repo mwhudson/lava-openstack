@@ -10,6 +10,8 @@ if [ -n "$MACHINE_IPS" ]; then
     for machine_ip in $MACHINE_IPS; do
         juju add-machine ssh:$machine_ip
     done
+else
+    sleep 10
 fi
 
 sudo chown ubuntu:ubuntu cloud-sh
