@@ -23,14 +23,18 @@ fi
 
 export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
 export MACHINE_IPS=
-for host in $(lava-group machine); do
-    MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
-done
+if [ -n "$(lava-group machine)" ]; then
+    for host in $(lava-group machine); do
+        MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
+    done
+fi
 
 sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
-for machine_ip in $MACHINE_IPS; do
-    sudo -u ubuntu ssh ubuntu@$machine_ip true
-done
+if [ -n "$MACHINE_IPS" ]; fi
+    for machine_ip in $MACHINE_IPS; do
+        sudo -u ubuntu ssh ubuntu@$machine_ip true
+    done
+fi
 
 if [ `lava-role` = "bootstrap" ]; then
     apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc

@@ -3,7 +3,7 @@ device_group:
     count: 1
     device_type: mustang
   - role: machine
-    count: 1
+    count: 0
     device_type: mustang
 
 job_name: mwhudson-packagedstack

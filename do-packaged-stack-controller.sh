@@ -6,9 +6,11 @@ sed -e "s/@BOOTSTRAP_IP@/$BOOTSTRAP_IP/" ./environments.yaml | tee ~/.juju/envir
 cp ./minimal-juju-deploy.yaml ~
 juju bootstrap
 
-for machine_ip in $MACHINE_IPS; do
-    juju add-machine ssh:$machine_ip
-done
+if [ -n "$MACHINE_IPS" ]; then
+    for machine_ip in $MACHINE_IPS; do
+        juju add-machine ssh:$machine_ip
+    done
+fi
 
 sudo chown ubuntu:ubuntu cloud-sh
 cd cloud-sh
