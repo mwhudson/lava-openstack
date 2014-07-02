@@ -41,7 +41,7 @@ export BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a) 
 #fi
 
 if true; then
-    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
+    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc nova-common
     ./lxc-net.sh
     sleep 10
     sudo -u ubuntu -E ./do-packaged-stack-controller.sh

@@ -6,30 +6,20 @@
 nova flavor-delete m1.tiny
 nova flavor-create m1.tiny 1 512 8 1
 
-# configure external network
-neutron net-create --router:external=True --shared ext-net
-neutron subnet-create --name ext-subnet --gateway 10.102.3.1 --allocation-pool start=10.102.3.200,end=10.102.3.254 --disable-dhcp ext-net 10.102.3.0/24
+# Create a small network
+FIXED_RANGE=192.168.1.0/24
+FIXED_NETWORK_SIZE=256
+nova-manage network create "private" $FIXED_RANGE 1 $FIXED_NETWORK_SIZE
+
+# Create some floating ips
+FLOATING_RANGE=${FLOATING_RANGE:-172.24.4.0/24}
+nova-manage floating create $FLOATING_RANGE --pool=public
+
 
 # create ubuntu user
 keystone tenant-create --name ubuntu --description "Created by Juju"
 keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost
 #keystone user-role-add --user ubuntu --role _member_ --tenant ubuntu
-
-. ~/ubuntu-openrc
-
-# create vm network
-neutron net-create ubuntu-net
-neutron subnet-create --name ubuntu-subnet --gateway 10.102.4.1 --dns-nameserver 10.102.3.1 ubuntu-net 10.102.4.0/24
-neutron router-create ubuntu-router
-neutron router-interface-add ubuntu-router ubuntu-subnet
-neutron router-gateway-set ubuntu-router ext-net
-
-# create pool of floating ips
-i=0
-while [ $i -ne 5 ]; do
-	neutron floatingip-create ext-net
-	i=$((i + 1))
-done
 
 # configure security groups
 nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
