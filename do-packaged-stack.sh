@@ -61,4 +61,4 @@ if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
     sleep 3600
 fi
 
-lava-sync all-done
+#lava-sync all-done

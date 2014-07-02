@@ -57,7 +57,7 @@ juju deploy --to 0 nova-compute
 juju deploy --config config.yaml --to lxc:0 mysql
 juju deploy --to lxc:0 rabbitmq-server
 juju deploy --config config.yaml --to lxc:0 keystone
-juju deploy --config config.yaml --to lxc:0 nova-cloud-controller
+juju deploy --to lxc:0 nova-cloud-controller
 #juju deploy --to lxc:0 cinder
 juju deploy --to lxc:0 glance
 #juju deploy --to lxc:0 openstack-dashboard
