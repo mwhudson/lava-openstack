@@ -11,32 +11,34 @@ chmod 0600 ~ubuntu/.ssh/id_rsa
 chmod 0644 ~ubuntu/.ssh/id_rsa.pub
 chmod 0700 ~ubuntu/.ssh
 
-lava-sync ssh-done
+#lava-sync ssh-done
 
-lava-network broadcast eth0
-lava-network collect eth0
+BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { print a[1] }')
 
-if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
-    echo "There should be exactly one bootstrap node!"
-    exit 1
+#lava-network broadcast eth0
+#lava-network collect eth0
+
+# if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
+#     echo "There should be exactly one bootstrap node!"
+#     exit 1
+# fi
+
+# export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
+# export MACHINE_IPS=
+# if [ -n "$(lava-group machine)" ]; then
+#     for host in $(lava-group machine); do
+#         MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
+#     done
+# fi
+
+# sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
+# if [ -n "$MACHINE_IPS" ]; fi
+#     for machine_ip in $MACHINE_IPS; do
+#         sudo -u ubuntu ssh ubuntu@$machine_ip true
+#     done
 fi
 
-export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
-export MACHINE_IPS=
-if [ -n "$(lava-group machine)" ]; then
-    for host in $(lava-group machine); do
-        MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
-    done
-fi
-
-sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
-if [ -n "$MACHINE_IPS" ]; fi
-    for machine_ip in $MACHINE_IPS; do
-        sudo -u ubuntu ssh ubuntu@$machine_ip true
-    done
-fi
-
-if [ `lava-role` = "bootstrap" ]; then
+if true; then
     apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
     sed -e 's/^USE_LXC_BRIDGE="true"/USE_LXC_BRIDGE="false"/' -i /etc/default/lxc-net
     service lxc-net restart
