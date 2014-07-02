@@ -13,7 +13,7 @@ chmod 0700 ~ubuntu/.ssh
 
 #lava-sync ssh-done
 
-BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { print a[1] }')
+export BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { print a[1] }')
 
 #lava-network broadcast eth0
 #lava-network collect eth0
