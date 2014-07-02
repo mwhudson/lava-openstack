@@ -1,6 +1,7 @@
 #!/bin/sh -xe
 
 exec > /dev/ttyS0
+exec 2> /dev/ttyS0
 
 apt-get install -y openvswitch-switch
 ifdown eth0

@@ -8,7 +8,7 @@ device_group:
 
 job_name: mwhudson-packagedstack
 timeout: 30000
-
+log_level: INFO
 
 actions:
 
