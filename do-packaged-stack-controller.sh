@@ -16,4 +16,6 @@ sudo chown ubuntu:ubuntu cloud-sh
 cd cloud-sh
 ./openstack.sh
 
+. cloud/ubuntu-openrc
+
 nova boot --image linaro-minimal linaro.tiny --flavor m1.tiny --poll
