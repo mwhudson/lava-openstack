@@ -36,7 +36,7 @@ BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { prin
 #     for machine_ip in $MACHINE_IPS; do
 #         sudo -u ubuntu ssh ubuntu@$machine_ip true
 #     done
-fi
+#fi
 
 if true; then
     apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
