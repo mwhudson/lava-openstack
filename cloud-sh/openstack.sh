@@ -52,7 +52,7 @@ waitForService()
 }
 
 #juju deploy --config config.yaml quantum-gateway
-juju deploy --to 0 nova-compute
+juju deploy --to $COMPUTE_TARGET nova-compute
 
 juju deploy --config config.yaml --to lxc:0 mysql
 juju deploy --to lxc:0 rabbitmq-server

@@ -15,32 +15,43 @@ chmod 0700 ~ubuntu/.ssh
 
 #lava-sync ssh-done
 
-export BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { print a[1] }')
+export COMPUTE_TARGET
 
-#lava-network broadcast eth0
-#lava-network collect eth0
+if type -p lava-sync > /dev/null; then
 
-# if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
-#     echo "There should be exactly one bootstrap node!"
-#     exit 1
-# fi
+    lava-network broadcast eth0
+    lava-network collect eth0
 
-# export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
-# export MACHINE_IPS=
-# if [ -n "$(lava-group machine)" ]; then
-#     for host in $(lava-group machine); do
-#         MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
-#     done
-# fi
+    if [ $(lava-group bootstrap | awk 'END { print NR }') != 1 ]; then
+        echo "There should be exactly one bootstrap node!"
+        exit 1
+    fi
 
-# sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
-# if [ -n "$MACHINE_IPS" ]; fi
-#     for machine_ip in $MACHINE_IPS; do
-#         sudo -u ubuntu ssh ubuntu@$machine_ip true
-#     done
-#fi
+    export BOOTSTRAP_IP=$(lava-network query $(lava-group bootstrap) ipv4)
+    export MACHINE_IPS=
+    if [ -n "$(lava-group machine)" ]; then
+        for host in $(lava-group machine); do
+            MACHINE_IPS="$MACHINE_IPS${MACHINE_IPS:+ }$(lava-network query $host ipv4)"
+        done
+    fi
 
-if true; then
+    sudo -u ubuntu ssh ubuntu@$BOOTSTRAP_IP true
+    if [ -n "$MACHINE_IPS" ]; then
+       for machine_ip in $MACHINE_IPS; do
+           sudo -u ubuntu ssh ubuntu@$machine_ip true
+       done
+    fi
+    if [ "$(lava-role)" = "bootstrap" ]; then
+        is_bootstrap=yes
+    else
+        is_bootstrap=no
+    fi
+else
+    export BOOTSTRAP_IP=$(ip route get 8.8.8.8 | awk 'match($0, /src ([0-9.]+)/, a)  { print a[1] }')
+    is_bootstrap=yes
+fi
+
+if [ "$is_bootstrap" = "yes" ]; then
     apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc nova-common
     ./lxc-net.sh
     sleep 10
