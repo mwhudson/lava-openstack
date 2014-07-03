@@ -104,8 +104,8 @@ configOpenrc ubuntu password ubuntu http://$controller_address:5000/v2.0 RegionO
 chmod 0600 cloud/*
 
 machine=$(unitMachine nova-cloud-controller 0)
-cp cloud/admin-openrc cloud/ubuntu-openrc ~/.ssh/id_rsa.pub ~
-./cloud-setup.sh
+juju scp cloud-setup.sh cloud/admin-openrc cloud/ubuntu-openrc ~/.ssh/id_rsa.pub $machine:
+juju run --machine $machine ./cloud-setup.sh
 
 machine=$(unitMachine glance 0)
 ./glance.sh

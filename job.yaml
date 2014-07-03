@@ -45,7 +45,8 @@ actions:
       testdef_repos:
         - git-repo: http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-deploy-cloudimg.git
           parameters:
-            LAVA_CLOUD_IMG_URL: 'http://lava-leg02/~mwhudson/cloud.raw.gz'
+#            LAVA_CLOUD_IMG_URL: 'http://lava-leg02/~mwhudson/cloud.raw.gz'
+            LAVA_CLOUD_IMG_URL: 'http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-arm64-disk1.img'
       timeout: 900
 
   - &deploy-sata
