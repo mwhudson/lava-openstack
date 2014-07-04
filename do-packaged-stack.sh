@@ -13,11 +13,11 @@ chmod 0600 ~ubuntu/.ssh/id_rsa
 chmod 0644 ~ubuntu/.ssh/id_rsa.pub
 chmod 0700 ~ubuntu/.ssh
 
-#lava-sync ssh-done
 
 export COMPUTE_TARGET
 
 if type -p lava-sync > /dev/null; then
+    lava-sync ssh-done
 
     lava-network broadcast eth0
     lava-network collect eth0
