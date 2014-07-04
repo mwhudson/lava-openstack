@@ -62,4 +62,4 @@ if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
     sleep 3600
 fi
 
-#lava-sync all-done
+type -p lava-sync > /dev/null && lava-sync all-done
