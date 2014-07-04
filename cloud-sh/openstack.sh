@@ -122,9 +122,9 @@ nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
 nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
 
 # import key pair
-nova keypair-add --pub-key id_rsa.pub ubuntu-keypair
+nova keypair-add --pub-key ~/.ssh/id_rsa.pub ubuntu-keypair
 
 
 machine=$(unitMachine nova-cloud-controller 0)
-juju scp cloud-setup.sh cloud/admin-openrc cloud/ubuntu-openrc ~/.ssh/id_rsa.pub $machine:
+juju scp cloud-setup.sh $machine:
 juju run --machine $machine ./cloud-setup.sh
