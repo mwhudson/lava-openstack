@@ -52,7 +52,7 @@ waitForService()
 }
 
 #juju deploy --config config.yaml quantum-gateway
-juju deploy --to 1 nova-compute
+juju deploy --config config.yaml --to 1 nova-compute
 
 juju deploy --config config.yaml --to lxc:0 mysql
 juju deploy --to lxc:0 rabbitmq-server
@@ -103,9 +103,28 @@ configOpenrc admin password admin http://$controller_address:5000/v2.0 RegionOne
 configOpenrc ubuntu password ubuntu http://$controller_address:5000/v2.0 RegionOne > cloud/ubuntu-openrc
 chmod 0600 cloud/*
 
+./glance.sh
+
+. cloud/admin-openrc
+
+# adjust tiny image
+nova flavor-delete m1.tiny
+nova flavor-create m1.tiny 1 512 8 1
+
+
+# create ubuntu user
+keystone tenant-create --name ubuntu --description "Created by Juju"
+keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost
+#keystone user-role-add --user ubuntu --role _member_ --tenant ubuntu
+
+# configure security groups
+nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
+nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
+
+# import key pair
+nova keypair-add --pub-key id_rsa.pub ubuntu-keypair
+
+
 machine=$(unitMachine nova-cloud-controller 0)
 juju scp cloud-setup.sh cloud/admin-openrc cloud/ubuntu-openrc ~/.ssh/id_rsa.pub $machine:
 juju run --machine $machine ./cloud-setup.sh
-
-machine=$(unitMachine glance 0)
-./glance.sh

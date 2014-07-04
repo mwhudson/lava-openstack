@@ -1,6 +1,6 @@
-#!/bin/sh -e
+#!/bin/sh -xe
 
-. ~/admin-openrc
+. cloud/admin-openrc
 
 wget --progress=dot -e dotbytes=10M http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
 mkdir uec
