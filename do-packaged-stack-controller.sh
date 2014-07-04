@@ -21,3 +21,9 @@ cd cloud-sh
 . cloud/ubuntu-openrc
 
 nova boot --image linaro-minimal linaro.tiny --flavor m1.tiny --poll
+
+sleep 10
+
+nova console-log linaro.tiny
+
+nova list
