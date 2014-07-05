@@ -52,7 +52,7 @@ else
 fi
 
 if [ "$is_bootstrap" = "yes" ]; then
-    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc nova-common
+    apt-get install -y juju-core juju-deployer git testrepository subunit python-nose python-lxml python-openstackclient lxc
     ./lxc-net.sh
     sleep 10
     sudo -u ubuntu -E ./do-packaged-stack-controller.sh
