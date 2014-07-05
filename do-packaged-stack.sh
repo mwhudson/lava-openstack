@@ -59,7 +59,7 @@ if [ "$is_bootstrap" = "yes" ]; then
 fi
 
 if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
-    sleep 3600
+    sleep 36000
 fi
 
 type -p lava-sync > /dev/null && lava-sync all-done
