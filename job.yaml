@@ -1,12 +1,12 @@
-device_group:
-  - role: bootstrap
-    count: 1
-    device_type: mustang
-  - role: machine
-    count: 1
-    device_type: mustang
+# device_group:
+#   - role: bootstrap
+#     count: 1
+#     device_type: mustang
+#   - role: machine
+#     count: 1
+#     device_type: mustang
 
-#device_type: mustang
+device_type: mustang
 job_name: mwhudson-packagedstack
 timeout: 30000
 log_level: INFO
@@ -84,7 +84,6 @@ actions:
             LAVA_RUN_TEMPEST: 'yes'
             LAVA_SLEEP_FOR_ACCESS: 'no'
             LAVA_TESTS_TO_RUN: ''
-            COMPUTE_TARGET: '1'
       timeout: 24000
 
   - command: submit_results

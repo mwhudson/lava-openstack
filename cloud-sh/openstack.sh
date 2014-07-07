@@ -51,16 +51,13 @@ waitForService()
 	done
 }
 
-#juju deploy --config config.yaml quantum-gateway
-juju deploy --config config.yaml --to 1 nova-compute
+juju deploy --config config.yaml --to 0 nova-compute
 
 juju deploy --config config.yaml --to lxc:0 mysql
 juju deploy --to lxc:0 rabbitmq-server
 juju deploy --config config.yaml --to lxc:0 keystone
 juju deploy --to lxc:0 nova-cloud-controller
-#juju deploy --to lxc:0 cinder
 juju deploy --to lxc:0 glance
-#juju deploy --to lxc:0 openstack-dashboard
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
@@ -72,30 +69,18 @@ juju add-relation nova-cloud-controller mysql
 juju add-relation nova-cloud-controller rabbitmq-server
 juju add-relation nova-cloud-controller glance
 juju add-relation nova-cloud-controller keystone
-#juju add-relation quantum-gateway mysql
-#juju add-relation quantum-gateway rabbitmq-server
-#juju add-relation quantum-gateway nova-cloud-controller
-#juju add-relation cinder nova-cloud-controller
-#juju add-relation cinder mysql
-#juju add-relation cinder rabbitmq-server
 juju add-relation nova-compute mysql
 juju add-relation nova-compute:amqp rabbitmq-server:amqp
 juju add-relation nova-compute glance
 juju add-relation nova-compute nova-cloud-controller
 juju add-relation glance mysql
 juju add-relation glance keystone
-#juju add-relation openstack-dashboard keystone
 
 waitForService rabbitmq-server nova-cloud-controller glance nova-compute
 # no official way of knowing when relation hooks have fired
 juju status
 sleep 240
 juju status
-
-# correct quantum networking for 1 nic
-#machine=$(unitMachine quantum-gateway 0)
-#juju scp quantum-network.sh $machine:
-#juju run --machine $machine "sudo ./quantum-network.sh"
 
 mkdir -m 0700 -p cloud
 controller_address=$(unitAddress keystone 0)
@@ -123,7 +108,6 @@ nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
 
 # import key pair
 nova keypair-add --pub-key ~/.ssh/id_rsa.pub ubuntu-keypair
-
 
 machine=$(unitMachine nova-cloud-controller 0)
 juju scp cloud-setup.sh $machine:

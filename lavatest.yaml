@@ -11,15 +11,18 @@ metadata:
       - mustang
    environment:
       - lava-test-shell
+install:
+  git-repos:
+    - http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-mustang-juju.git
 
 run:
   steps:
     - "resolvconf -u"
-    - "export LAVA_RUN_TEMPEST LAVA_SLEEP_FOR_ACCESS LAVA_TESTS_TO_RUN"
-    - "./do-packaged-stack.sh"
+    - "export LAVA_SLEEP_FOR_ACCESS LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
+    - "./lava-mustang-juju/install-and-bootstrap.sh ./deploy-openstack.sh"
 
 params:
   LAVA_RUN_TEMPEST: 'yes'
   LAVA_SLEEP_FOR_ACCESS: 'no'
   LAVA_TESTS_TO_RUN: ''
-  COMPUTE_TARGET: '1'
+  LAVA_SLEEP_DURATION: 36000

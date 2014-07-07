@@ -1,6 +1,0 @@
-default: manual
-environments:
-  manual:
-    type: manual
-    bootstrap-host: "@BOOTSTRAP_IP@"
-    bootstrap-user: ubuntu

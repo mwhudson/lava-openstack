@@ -18,4 +18,4 @@ KERNEL_ID=$(glance image-create --name "$IMAGE_NAME-kernel" --is-public True --c
 
 glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-public True --container-format ami --disk-format ami --property kernel_id=$KERNEL_ID < "${IMAGE}"
 IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
-glance image-update $IMAGE_UUID --property os_command_line='root=/dev/vdb rw rootwait console=ttyAMA0'
+glance image-update $IMAGE_UUID --property os_command_line='root=/dev/vda rw rootwait console=ttyAMA0'
