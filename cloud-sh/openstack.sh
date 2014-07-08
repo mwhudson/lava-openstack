@@ -58,6 +58,8 @@ juju deploy --to lxc:0 rabbitmq-server
 juju deploy --config config.yaml --to lxc:0 keystone
 juju deploy --to lxc:0 nova-cloud-controller
 juju deploy --to lxc:0 glance
+juju deploy swift-proxy --to lxc:0
+juju deploy swift-storage --to 0
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
@@ -75,8 +77,10 @@ juju add-relation nova-compute glance
 juju add-relation nova-compute nova-cloud-controller
 juju add-relation glance mysql
 juju add-relation glance keystone
+juju add-relation swift-proxy keystone
+juju add-relation swift-proxy swift-storage
 
-waitForService rabbitmq-server nova-cloud-controller glance nova-compute
+waitForService rabbitmq-server nova-cloud-controller glance nova-compute swift-proxy swift-storage
 # no official way of knowing when relation hooks have fired
 juju status
 sleep 240
@@ -114,15 +118,3 @@ machine=$(unitMachine nova-cloud-controller 0)
 juju scp cloud-setup.sh $machine:
 juju run --machine $machine ./cloud-setup.sh
 
-git clone https://github.com/openstack/tempest.git ~/tempest
-IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
-. cloud/ubuntu-openrc
-access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
-secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
-. cloud/admin-openrc
-
-sed -e "s/@IMAGE_ID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/g" \
-    -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
-    tempest.conf.in > ~/tempest/etc/tempest.conf
-cd ~/tempest
-python -m unittest discover -v
