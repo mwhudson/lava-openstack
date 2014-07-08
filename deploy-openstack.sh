@@ -2,7 +2,7 @@
 # This runs as ubuntu.
 
 sudo chown ubuntu:ubuntu cloud-sh
-sudo apt-get install python-openstackclient
+sudo apt-get install -y python-openstackclient
 cd cloud-sh
 ./openstack.sh
 
