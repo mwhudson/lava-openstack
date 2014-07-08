@@ -116,10 +116,10 @@ juju run --machine $machine ./cloud-setup.sh
 
 git clone https://github.com/openstack/tempest.git ~/tempest
 IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
-. ~/ubuntu-openrc
+. cloud/ubuntu-openrc
 access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
 secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
-. ~/admin-openrc
+. cloud/admin-openrc
 
 sed -e "s/@IMAGE_ID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/g" \
     -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
