@@ -18,7 +18,7 @@ install:
 run:
   steps:
     - "resolvconf -u"
-    - "export LAVA_SLEEP_FOR_ACCESS LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
+    - "export LAVA_SLEEP_FOR_ACCESS LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN LAVA_SLEEP_DURATION"
     - "./lava-mustang-juju/install-and-bootstrap.sh ./deploy-openstack.sh"
 
 params:
