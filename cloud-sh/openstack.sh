@@ -100,7 +100,8 @@ nova flavor-create m1.tiny 1 512 8 1
 # create ubuntu user
 keystone tenant-create --name ubuntu --description "Created by Juju"
 keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost
-#keystone user-role-add --user ubuntu --role _member_ --tenant ubuntu
+keystone tenant-create --name ubuntu_alt --description "Created by Juju"
+keystone user-create --name ubuntu_alt --tenant ubuntu_alt --pass password --email juju_alt@localhost
 
 # configure security groups
 nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
@@ -112,3 +113,16 @@ nova keypair-add --pub-key ~/.ssh/id_rsa.pub ubuntu-keypair
 machine=$(unitMachine nova-cloud-controller 0)
 juju scp cloud-setup.sh $machine:
 juju run --machine $machine ./cloud-setup.sh
+
+git clone https://github.com/openstack/tempest.git ~/tempest
+IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
+. ~/ubuntu-openrc
+access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
+secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
+. ~/admin-openrc
+
+sed -e "s/@IMAGE_ID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/g" \
+    -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
+    tempest.conf.in > ~/tempest/etc/tempest.conf
+cd ~/tempest
+python -m unittest discover -v

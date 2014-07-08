@@ -1,0 +1,127 @@
+[DEFAULT]
+debug = True
+log_file = tempest.log
+use_stderr = False
+lock_path = /tmp
+
+[baremetal]
+driver_enabled=false
+
+[boto]
+s3_url = http://@CONTROLLER_IP@:3333
+ec2_url = http://@CONTROLLER_IP@:8773/services/Cloud
+aws_access = @ACCESS@
+aws_secret = @SECRET@
+
+[cli]
+cli_dir = /usr/bin
+has_manage=false
+
+[compute]
+ssh_connect_method = fixed
+flavor_ref_alt = 2
+flavor_ref = 1
+image_alt_ssh_user = root
+image_ref_alt = @IMAGE_UUID@
+image_ssh_user = root
+image_ref = @IMAGE_UUID@
+ssh_timeout = 196
+ip_version_for_ssh = 4
+network_for_ssh = private
+ssh_user = root
+allow_tenant_isolation = True
+build_interval = 1
+build_timeout = 196
+run_ssh=true
+fixed_network_name=private
+
+# Network used for SSH connections. (string value)
+#network_for_ssh=public
+
+# Does SSH use Floating IPs? (boolean value)
+#use_floatingip_for_ssh=true
+
+# Catalog type of the Compute service. (string value)
+#catalog_type=compute
+
+
+[compute-admin]
+tenant_name = admin
+password = password
+username = admin
+
+
+[compute-feature-enabled]
+block_migration_for_live_migration = False
+change_password = False
+live_migration = False
+resize = False
+suspend= False
+vnc_console = False
+
+
+[dashboard]
+[data_processing]
+[database]
+[debug]
+[identity]
+auth_version = v2
+
+admin_domain_name = Default
+admin_tenant_name = admin
+admin_password = password
+admin_username = admin
+
+alt_tenant_name = ubuntu_alt
+alt_password = password
+alt_username = ubuntu_alt
+
+tenant_name = ubuntu
+password = password
+username = ubuntu
+
+uri_v3 = http://@CONTROLLER_IP@:5000/v3/
+uri = http://@CONTROLLER_IP@:5000/v2.0/
+admin_role = Admin
+[identity-feature-enabled]
+[image]
+http_image=http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
+[image-feature-enabled]
+[input-scenario]
+[negative]
+[network]
+default_network = 192.168.3.1/24
+public_router_id = 
+public_network_id = 
+tenant_networks_reachable = false
+api_version = 2.0
+[network-feature-enabled]
+api_extensions = all
+[object-storage]
+[object-storage-feature-enabled]
+[orchestration]
+[queuing]
+[scenario]
+large_ops_number = 0
+img_dir = /tmp/files/images/cirros-0.3.1-x86_64-uec
+[service_available]
+neutron = False
+heat = False
+ceilometer = False
+swift = False
+cinder = False
+nova = True
+glance = True
+horizon = False
+sahara = False
+ironic = False
+trove = False
+marconi = False
+[stress]
+[telemetry]
+[volume]
+build_interval = 1
+build_timeout = 196
+catalog_type=volume
+[volume-feature-enabled]
+backup = False
