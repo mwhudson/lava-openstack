@@ -59,7 +59,7 @@ juju deploy --config config.yaml --to lxc:0 keystone
 juju deploy --to lxc:0 nova-cloud-controller
 juju deploy --to lxc:0 glance
 juju deploy swift-proxy --to lxc:0
-juju deploy swift-storage --to 0
+juju deploy  --config config.yaml --to 0 swift-storage
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
