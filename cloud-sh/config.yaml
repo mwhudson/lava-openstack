@@ -18,4 +18,4 @@ swift-storage:
   block-device: '/srv/swift-storage|20G'
 
 swift-proxy:
-  use-https: no
+  use-https: 'no'
