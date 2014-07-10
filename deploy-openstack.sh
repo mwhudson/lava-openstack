@@ -1,6 +1,4 @@
-#!/bin/bash -x
-# This runs as ubuntu.
-
+#!/bin/bash -ex
 sudo chown ubuntu:ubuntu cloud-sh
 sudo apt-get install -y python-openstackclient
 cd cloud-sh
