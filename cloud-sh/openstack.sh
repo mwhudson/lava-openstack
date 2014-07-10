@@ -51,15 +51,14 @@ waitForService()
 	done
 }
 
-juju deploy --config config.yaml --to 0 nova-compute
-
-juju deploy --config config.yaml --to lxc:0 mysql
-juju deploy --to lxc:0 rabbitmq-server
-juju deploy --config config.yaml --to lxc:0 keystone
-juju deploy --to lxc:0 nova-cloud-controller
-juju deploy --to lxc:0 glance
-juju deploy swift-proxy --to lxc:0
-juju deploy  --config config.yaml --to 0 swift-storage
+juju deploy --to 0     --config config.yaml nova-compute
+juju deploy --to lxc:0 --config config.yaml mysql
+juju deploy --to lxc:0                      rabbitmq-server
+juju deploy --to lxc:0 --config config.yaml keystone
+juju deploy --to lxc:0                      nova-cloud-controller
+juju deploy --to lxc:0                      glance
+juju deploy --to lxc:0 --config config.yaml swift-proxy
+juju deploy --to 0     --config config.yaml swift-storage
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire
