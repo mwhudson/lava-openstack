@@ -2,7 +2,6 @@
 mydir=$(dirname $(readlink -f $0))
 sudo apt-get install -y python-pip
 git clone https://github.com/openstack/tempest.git ~/tempest
-sudo pip install -r requirements.txt
 . ~/ubuntu-openrc
 IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
 access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
@@ -18,6 +17,7 @@ sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/
     -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
     $mydir/tempest.conf.in > ~/tempest/etc/tempest.conf
 cd ~/tempest
+sudo pip install -r requirements.txt
 testr init
 testr list-tests $LAVA_TESTS_TO_RUN | tail -n +6 > /home/ubuntu/all-tests.txt
 testr run --parallel --subunit --load-list=/home/ubuntu/all-tests.txt | tail -n +6 | tee results.subunit | subunit-2to1 | tools/colorizer.py
