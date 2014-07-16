@@ -21,8 +21,10 @@ sudo pip install -r requirements.txt
 testr init
 testr list-tests $LAVA_TESTS_TO_RUN | tail -n +6 > /home/ubuntu/all-tests.txt
 testr run --parallel --subunit --load-list=/home/ubuntu/all-tests.txt | tail -n +6 | tee results.subunit | subunit-2to1 | tools/colorizer.py
+sudo apt-get install -y subunit
 cat results.subunit | subunit2csv --no-passthrough > /home/ubuntu/results.csv
 
+echo $PATH
 sudo -E lava-test-run-attach /home/ubuntu/all-tests.txt
 sudo -E lava-test-run-attach /home/ubuntu/results.csv
 python $mydir/simplify-results.py /home/ubuntu/results.csv  /home/ubuntu/all-tests.txt
