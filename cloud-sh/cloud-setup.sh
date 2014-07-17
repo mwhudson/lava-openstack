@@ -7,4 +7,4 @@ sudo nova-manage network create "private" $FIXED_RANGE 1 $FIXED_NETWORK_SIZE --b
 
 # Create some floating ips
 FLOATING_RANGE=${FLOATING_RANGE:-172.24.4.0/24}
-sudo nova-manage floating create $FLOATING_RANGE --pool=public
+sudo nova-manage floating create $FLOATING_RANGE
