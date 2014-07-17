@@ -16,6 +16,9 @@ nova-compute:
 
 swift-storage:
   block-device: '/srv/swift-storage|20G'
+  zone: 1
 
 swift-proxy:
   use-https: 'no'
+  zone-assignment: manual
+  replicas: 1
