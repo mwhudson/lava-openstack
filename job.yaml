@@ -89,4 +89,4 @@ actions:
   - command: submit_results
     parameters:
       server: 'http://validation.linaro.org/RPC2/'
-      stream: '/private/team/mustang/mwhudson/'
+      stream: '/private/team/mustang/mwhudson-jujustack/'
