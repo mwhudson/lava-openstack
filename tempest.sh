@@ -25,7 +25,7 @@ if [ "$LAVA_RUN_TEMPEST" = "yes" ]; then
     sudo apt-get install -y subunit
     cat results.subunit | subunit2csv --no-passthrough > /home/ubuntu/results.csv
 
-    lava-test-run-attach /home/ubuntu/all-tests.txt
-    lava-test-run-attach /home/ubuntu/results.csv
+    sudo -E PATH=$PATH lava-test-run-attach /home/ubuntu/all-tests.txt
+    sudo -E PATH=$PATH lava-test-run-attach /home/ubuntu/results.csv
     python $mydir/simplify-results.py /home/ubuntu/results.csv  /home/ubuntu/all-tests.txt
 fi
