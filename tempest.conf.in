@@ -25,13 +25,13 @@ image_alt_ssh_user = root
 image_ref_alt = @IMAGE_UUID@
 image_ssh_user = root
 image_ref = @IMAGE_UUID@
-ssh_timeout = 196
+ssh_timeout = 500
 ip_version_for_ssh = 4
 network_for_ssh = private
 ssh_user = root
 allow_tenant_isolation = True
 build_interval = 1
-build_timeout = 196
+build_timeout = 500
 run_ssh=true
 fixed_network_name=private
 
@@ -121,7 +121,7 @@ marconi = False
 [telemetry]
 [volume]
 build_interval = 1
-build_timeout = 196
+build_timeout = 500
 catalog_type=volume
 [volume-feature-enabled]
 backup = False

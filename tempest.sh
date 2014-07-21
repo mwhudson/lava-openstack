@@ -21,7 +21,7 @@ sudo pip install -r requirements.txt
 testr init
 if [ "$LAVA_RUN_TEMPEST" = "yes" ]; then
     testr list-tests $LAVA_TESTS_TO_RUN | tail -n +6 > /home/ubuntu/all-tests.txt
-    testr run --subunit --load-list=/home/ubuntu/all-tests.txt | tail -n +6 | tee results.subunit | subunit-2to1 | tools/colorizer.py
+    OS_TEST_TIMEOUT=1200 testr run --subunit --load-list=/home/ubuntu/all-tests.txt | tail -n +6 | tee results.subunit | subunit-2to1 | tools/colorizer.py
     sudo apt-get install -y subunit
     cat results.subunit | subunit2csv --no-passthrough > /home/ubuntu/results.csv
 
