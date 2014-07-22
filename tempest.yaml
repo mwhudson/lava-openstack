@@ -20,8 +20,6 @@ run:
 
 params:
   LAVA_RUN_TEMPEST: 'yes'
-  LAVA_SLEEP_DURATION: 36000
-  LAVA_SLEEP_FOR_ACCESS: 'no'
   LAVA_TESTS_TO_RUN: ''
 
 parse:
