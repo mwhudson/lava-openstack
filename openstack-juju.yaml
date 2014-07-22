@@ -22,10 +22,8 @@ run:
     - "./lava-mustang-juju/install-and-bootstrap.sh ./deploy-openstack.sh"
 
 params:
-  LAVA_RUN_TEMPEST: 'yes'
   LAVA_SLEEP_DURATION: 36000
   LAVA_SLEEP_FOR_ACCESS: 'no'
-  LAVA_TESTS_TO_RUN: ''
 
 parse:
   pattern: "TEST@(?P<test_case_id>[-0-9A-Za-z_.]+)@ RESULT@(?P<result>[-0-9A-Za-z_.]+)@"
