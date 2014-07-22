@@ -1,4 +1,5 @@
 #!/bin/bash -x
+mydir=$(dirname $(readlink -f $0))
 cd ~/tempest
 sudo pip install -r requirements.txt
 testr init

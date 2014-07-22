@@ -16,6 +16,7 @@ run:
   steps:
     - "resolvconf -u"
     - "export LAVA_SLEEP_FOR_ACCESS LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN LAVA_SLEEP_DURATION"
+    - "apt-get -y install lsb-release git nmap vim pm-utils bridge-utils openssh-server subunit"
     - "git clone -b arm64-trusty git://github.com/mwhudson/testing-openstack"
     - "cd testing-openstack"
     - "./setup.sh"
