@@ -15,12 +15,15 @@ metadata:
 run:
   steps:
     - "resolvconf -u"
+    - "set -x"
     - "export LAVA_SLEEP_FOR_ACCESS LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN LAVA_SLEEP_DURATION"
     - "apt-get -y install lsb-release git nmap vim pm-utils bridge-utils openssh-server subunit"
     - "git clone -b arm64-trusty git://github.com/mwhudson/testing-openstack"
     - "cd testing-openstack"
     - "./setup.sh"
+    - "sleep 60"
     - "sudo -u ubuntu ln -s /opt/stack/tempest /home/ubuntu/tempest"
+    - "lava-test-run-attach ~/tempest/etc/tempest.conf"
     - 'if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then'
     - '    sleep $LAVA_SLEEP_DURATION'
     - 'fi'
