@@ -6,4 +6,4 @@ cd cloud-sh
 ./openstack.sh
 cp cloud/* ~/
 cd ../
-./tempest.sh
+./install-tempest.sh

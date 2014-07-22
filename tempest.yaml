@@ -1,0 +1,28 @@
+metadata:
+   name: packaged-stack
+   maintainer:
+      - Michael Hudson-Doyle <michael.hudson@linaro.org>
+   format: "Lava-Test-Shell Test Definition 1.0"
+   version: 1.0
+   description: ""
+   os:
+      - ubuntu
+   devices:
+      - mustang
+   environment:
+      - lava-test-shell
+
+run:
+  steps:
+    - "resolvconf -u"
+    - "export LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
+    - "sudo -E -u ubuntu PATH=$PATH ./tempest.sh"
+
+params:
+  LAVA_RUN_TEMPEST: 'yes'
+  LAVA_SLEEP_DURATION: 36000
+  LAVA_SLEEP_FOR_ACCESS: 'no'
+  LAVA_TESTS_TO_RUN: ''
+
+parse:
+  pattern: "TEST@(?P<test_case_id>[-0-9A-Za-z_.]+)@ RESULT@(?P<result>[-0-9A-Za-z_.]+)@"
