@@ -7,7 +7,7 @@
 #     device_type: mustang
 
 device_type: mustang
-job_name: mwhudson-packagedstack
+job_name: mwhudson-devstack
 timeout: 30000
 log_level: INFO
 
@@ -93,4 +93,4 @@ actions:
   - command: submit_results
     parameters:
       server: 'http://validation.linaro.org/RPC2/'
-      stream: '/private/team/mustang/mwhudson-jujustack/'
+      stream: '/private/team/mustang/mwhudson-devstack/'
