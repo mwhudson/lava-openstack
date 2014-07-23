@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 mydir=$(dirname $(readlink -f $0))
 sudo apt-get install -y python-pip
 git clone https://github.com/openstack/tempest.git ~/tempest
@@ -18,7 +18,7 @@ sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/
     $mydir/tempest.conf.in > ~/tempest/etc/tempest.conf
 sudo -E PATH=$PATH lava-test-run-attach ~/tempest/etc/tempest.conf
 # WHISKY TANGO FOXTROT:
-apt-get install -y --reinstall python-glanceclient
+sudo apt-get install -y --reinstall python-glanceclient
 cd ~/tempest
 sudo pip install -r requirements.txt
 testr init
