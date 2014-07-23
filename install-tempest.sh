@@ -17,3 +17,8 @@ sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/
     -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
     $mydir/tempest.conf.in > ~/tempest/etc/tempest.conf
 sudo -E PATH=$PATH lava-test-run-attach ~/tempest/etc/tempest.conf
+# WHISKY TANGO FOXTROT:
+apt-get install -y --reinstall python-glanceclient
+cd ~/tempest
+sudo pip install -r requirements.txt
+testr init

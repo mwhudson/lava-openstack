@@ -15,8 +15,9 @@ metadata:
 run:
   steps:
     - "resolvconf -u"
+    - "set -x"
     - "export LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
-    - "sudo -E -u ubuntu PATH=$PATH ./tempest.sh"
+    - "sudo -u ubuntu -E PATH=$PATH ./tempest.sh"
 
 params:
   LAVA_RUN_TEMPEST: 'yes'
