@@ -32,7 +32,7 @@ cat > ~/run-in-tempest-dir.sh <<EOF
 #!/bin/sh -x
 juju scp \$1 $host:script.sh
 juju ssh $host "cd tempest && LAVA_TESTS_TO_RUN=\$LAVA_TESTS_TO_RUN LAVA_RUN_TEMPEST=\$LAVA_RUN_TEMPEST ../script.sh"
-juju scp -r $host:output ~/output
+juju scp $host:output.tgz ~/
 EOF
 chmod u+x ~/run-in-tempest-dir.sh
 cat ~/run-in-tempest-dir.sh

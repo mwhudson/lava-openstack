@@ -10,3 +10,4 @@ if [ "$LAVA_RUN_TEMPEST" = "yes" ]; then
     sudo apt-get install -y subunit
     cat results.subunit | subunit2csv --no-passthrough > /home/ubuntu/output/results.csv
 fi
+tar -cvzf ~/output.tgz -C ~ output
