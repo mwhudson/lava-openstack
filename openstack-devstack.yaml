@@ -25,11 +25,8 @@ run:
     - 'if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then'
     - '    sleep $LAVA_SLEEP_DURATION'
     - 'fi'
-    - 'cat > ~/run-in-tempest-dir.sh <<EOF'
-    - 'fpath=$(readlink -f $1)'
-    - 'cd /opt/stack/tempest && $fpath'
-    - 'EOF'
-    - 'chmod u+x ~/run-in-tempest-dir.sh'
+    - "cd -"
+    - 'cp tempest-run-in-tempest-dir.sh /home/ubuntu/run-in-tempest-dir.sh'
 
 params:
   LAVA_SLEEP_DURATION: 36000
