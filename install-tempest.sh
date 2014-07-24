@@ -31,7 +31,7 @@ juju scp /tmp/tempest.conf $host:tempest/etc/
 cat > ~/run-in-tempest-dir.sh <<EOF
 #!/bin/sh
 juju scp \$1 $host:script.sh
-juju ssh $host 'cd tempest && ~/script.sh'
+juju ssh $host 'cd tempest && LAVA_TESTS_TO_RUN=$LAVA_TESTS_TO_RUN LAVA_RUN_TEMPEST=$LAVA_RUN_TEMPEST ~/script.sh'
 juju scp -r $host:output ~/output
 EOF
 chmod u+x ~/run-in-tempest-dir.sh
