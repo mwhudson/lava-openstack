@@ -17,7 +17,12 @@ run:
     - "resolvconf -u"
     - "set -x"
     - "export LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
-    - "sudo -u ubuntu -E PATH=$PATH ./tempest.sh"
+    - "sudo -u ubuntu -E PATH=$PATH ~/run-in-tempest-dir.sh ./tempest.sh"
+    - "lava-test-run-attach output/all-tests.txt"
+    - "lava-test-run-attach output/tempest.conf"
+    - "lava-test-run-attach output/results.csv"
+    - "python simplify-results.py output/results.csv output/all-tests.txt
+
 
 params:
   LAVA_RUN_TEMPEST: 'yes'
