@@ -21,7 +21,7 @@ run:
     - "lava-test-run-attach output/all-tests.txt"
     - "lava-test-run-attach output/tempest.conf"
     - "lava-test-run-attach output/results.csv"
-    - "python simplify-results.py output/results.csv output/all-tests.txt
+    - "python simplify-results.py output/results.csv output/all-tests.txt"
 
 
 params:
