@@ -1,5 +1,4 @@
 #!/bin/bash -x
-mydir=$(dirname $(readlink -f $0))
 if [ ! -d .testrepository ]; then
     testr init
 fi
