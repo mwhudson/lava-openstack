@@ -28,7 +28,6 @@ run:
     - "cd -"
     - 'cp tempest-run-in-tempest-dir.sh /home/ubuntu/run-in-tempest-dir.sh'
     - 'set +x'
-    - '(sleep 30; kill $$) &'
 
 params:
   LAVA_SLEEP_DURATION: 36000
