@@ -19,10 +19,9 @@ run:
     - "export LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
     - "sudo -u ubuntu -E ~/run-in-tempest-dir.sh ./tempest.sh"
     - "tar -xvzf ~ubuntu/output.tgz"
-    - "lava-test-run-attach output/all-tests.txt"
-    - "lava-test-run-attach output/tempest.conf"
-    - "lava-test-run-attach output/results.csv"
-    - "python simplify-results.py output/results.csv output/all-tests.txt"
+    - "cd output"
+    - 'for i in *; do lava-test-run-attach "$i"; done'
+    - "python simplify-results.py results.csv all-tests.txt"
     - "set +x"
 
 
