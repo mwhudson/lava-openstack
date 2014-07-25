@@ -21,6 +21,7 @@ run:
     - "git clone -b arm64-trusty git://github.com/mwhudson/testing-openstack"
     - "cd testing-openstack"
     - "exec 1>/dev/tty"
+    - "exec 2>/dev/tty"
     - "./setup.sh"
     - "sleep 60"
     - 'if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then'
