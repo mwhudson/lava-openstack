@@ -21,7 +21,7 @@ run:
     - "tar -xvzf ~ubuntu/output.tgz"
     - "cd output"
     - 'for i in *; do lava-test-run-attach "$i"; done'
-    - "python simplify-results.py results.csv all-tests.txt"
+    - "python ../simplify-results.py results.csv all-tests.txt"
     - "set +x"
 
 
