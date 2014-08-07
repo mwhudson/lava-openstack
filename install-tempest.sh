@@ -19,6 +19,7 @@ sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/
 host=$($mydir/add-new-lxc.py)
 
 cat > /tmp/install.sh <<EOF
+sudo apt-get update
 sudo apt-get install -y bridge-utils pylint python-setuptools screen unzip wget psmisc git openssh-server openssl python-virtualenv python-unittest2 iputils-ping wget curl tcpdump euca2ools tar python-dev python2.7 bc libxslt1-dev zlib1g-dev 
 git clone https://github.com/openstack/tempest.git ~/tempest
 cd ~/tempest
