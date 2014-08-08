@@ -51,7 +51,7 @@ waitForService()
 	done
 }
 
-juju deploy --to 0     --config config.yaml nova-compute
+juju deploy --to 1     --config config.yaml nova-compute
 juju deploy --to lxc:0 --config config.yaml mysql
 juju deploy --to lxc:0                      rabbitmq-server
 juju deploy --to lxc:0 --config config.yaml keystone
