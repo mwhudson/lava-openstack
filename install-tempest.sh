@@ -2,7 +2,7 @@
 mydir=$(dirname $(readlink -f $0))
 
 . ~/ubuntu-openrc
-IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
+IMAGE_UUID=`glance image-list | awk '/trusty.*ami/{print $2}'`
 access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
 secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
 
