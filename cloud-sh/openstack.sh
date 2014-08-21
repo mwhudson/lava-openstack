@@ -66,15 +66,15 @@ waitForService mysql keystone
 juju add-relation keystone mysql
 sleep 120
 
-juju add-relation nova-cloud-controller mysql
+juju add-relation nova-cloud-controller:shared-db mysql:shared-db
 juju add-relation nova-cloud-controller rabbitmq-server
 juju add-relation nova-cloud-controller glance
 juju add-relation nova-cloud-controller keystone
-juju add-relation nova-compute mysql
+juju add-relation nova-compute:shared-db mysql:shared-db
 juju add-relation nova-compute:amqp rabbitmq-server:amqp
 juju add-relation nova-compute glance
 juju add-relation nova-compute nova-cloud-controller
-juju add-relation glance mysql
+juju add-relation glance:shared-db mysql:shared-db
 juju add-relation glance keystone
 juju add-relation swift-proxy keystone
 juju add-relation swift-proxy swift-storage
