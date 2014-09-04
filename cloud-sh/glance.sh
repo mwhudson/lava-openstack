@@ -5,7 +5,7 @@
 IMAGE_NAME=linaro-minimal
 IMAGE_URL=http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
 IMAGE_NAME=trusty-server
-IMAGE_URL=http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-arm64.tar.gz
+IMAGE_URL=http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-`dpkg --print-architecture`.tar.gz
 
 wget --progress=dot -e dotbytes=10M -O uec.tar.gz $IMAGE_URL
 
