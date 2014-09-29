@@ -13,6 +13,10 @@ unitAddress()
 
 controller_address=$(unitAddress keystone 0)
 
+nova flavor-create m1.nano 42 64 0 1
+nova flavor-create m1.micro 84 128 0 1
+
+
 sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/g" \
     -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
     $mydir/tempest.conf.in > /tmp/tempest.conf

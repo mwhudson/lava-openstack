@@ -19,8 +19,8 @@ has_manage=false
 
 [compute]
 ssh_connect_method = fixed
-flavor_ref_alt = 3
-flavor_ref = 2
+flavor_ref_alt = 84
+flavor_ref = 42
 image_alt_ssh_user = root
 image_ref_alt = @IMAGE_UUID@
 image_ssh_user = root
@@ -55,7 +55,7 @@ username = admin
 block_migration_for_live_migration = False
 change_password = False
 live_migration = False
-resize = False
+resize = True
 suspend= False
 vnc_console = False
 
