@@ -53,7 +53,12 @@ waitForService()
 
 juju deploy --to 0     --config config.yaml nova-compute
 juju deploy --to lxc:0 --config config.yaml mysql
-juju deploy --to lxc:0                      rabbitmq-server
+
+mkdir -p charms/trusty
+bzr branch -r 59 lp:charms/trusty/rabbitmq-server charms/trusty/rabbitmq-server
+juju deploy --repository=charms local:rabbitmq-server
+
+#juju deploy --to lxc:0                      rabbitmq-server
 juju deploy --to lxc:0 --config config.yaml keystone
 juju deploy --to lxc:0                      nova-cloud-controller
 juju deploy --to lxc:0                      glance
