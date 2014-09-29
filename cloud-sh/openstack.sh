@@ -56,7 +56,7 @@ juju deploy --to lxc:0 --config config.yaml mysql
 
 mkdir -p charms/trusty
 bzr branch -r 59 lp:charms/trusty/rabbitmq-server charms/trusty/rabbitmq-server
-juju deploy --repository=charms local:rabbitmq-server
+juju deploy  --to lxc:0 --repository=charms local:rabbitmq-server
 
 #juju deploy --to lxc:0                      rabbitmq-server
 juju deploy --to lxc:0 --config config.yaml keystone
