@@ -14,7 +14,7 @@ aws_access = @ACCESS@
 aws_secret = @SECRET@
 
 [cli]
-cli_dir = /usr/bin
+cli_dir = /usr/local/bin
 has_manage=false
 
 [compute]
