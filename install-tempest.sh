@@ -13,6 +13,7 @@ unitAddress()
 
 controller_address=$(unitAddress keystone 0)
 
+. ~/admin-openrc
 nova flavor-create m1.nano 42 64 0 1
 nova flavor-create m1.micro 84 128 0 1
 
