@@ -18,6 +18,12 @@ IMAGE=$(for f in "./"*.img "./"ami-*/image; do
 
 IMG_PROPERTY=" --property hw_machine_type=virt  --property hw_cdrom_bus=virtio"
 
+sudo mount-image-callback trusty-server-cloudimg-arm64.img -- sh -c 'cp $MOUNTPOINT/boot/initrd* . && chmod ugo+r initrd*'
+
+RAMDISK_ID=$(glance image-create --name "$IMAGE_NAME-ramdisk" --is-public True --container-format ari -disk-format ari < initrd* | grep ' id ' |  awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
+
 KERNEL_ID=$(glance image-create --name "$IMAGE_NAME-kernel" --is-public True --container-format aki --disk-format aki < "$KERNEL" | grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
 
-glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-public True --container-format ami --disk-format ami --property kernel_id=$KERNEL_ID < "${IMAGE}"
+IMAGE_UUID=$(glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-public True --container-format ami --disk-format ami --property kernel_id=$KERNEL_ID --property ramdisk_id=$RAMDISK_ID < "${IMAGE}" | grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
+
+glance image-update $IMAGE_UUID --property os_command_line='root=LABEL=cloudimg-rootfs rw rootwait console=ttyAMA0'
