@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/bash -ex
 
 CORES=$((1 + ((($(grep processor /proc/cpuinfo | wc -l) - 1) * 3) / 4)))
 

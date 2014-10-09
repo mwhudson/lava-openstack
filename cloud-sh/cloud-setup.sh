@@ -1,4 +1,4 @@
-#!/bin/sh -xe
+#!/bin/bash -xe
 
 # Create a small network
 FIXED_RANGE=192.168.1.0/24
