@@ -20,14 +20,6 @@ IMG_PROPERTY=" --property hw_machine_type=virt  --property hw_cdrom_bus=virtio"
 
 sudo mount-image-callback --verbose $IMAGE -- sh -xc 'cp -v $MOUNTPOINT/boot/initrd* . && chmod ugo+r initrd*'
 
-pwd
-ls
-sleep 5
-ls initrd*
-wc < initrd*
-
-sleep 3600
-
 RAMDISK_ID=$(glance image-create --name "$IMAGE_NAME-ramdisk" --is-public True --container-format ari --disk-format ari < initrd* | grep ' id ' |  awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
 
 KERNEL_ID=$(glance image-create --name "$IMAGE_NAME-kernel" --is-public True --container-format aki --disk-format aki < "$KERNEL" | grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
