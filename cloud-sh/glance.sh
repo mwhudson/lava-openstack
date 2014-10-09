@@ -18,7 +18,7 @@ IMAGE=$(for f in "./"*.img "./"ami-*/image; do
 
 IMG_PROPERTY=" --property hw_machine_type=virt  --property hw_cdrom_bus=virtio"
 
-sudo mount-image-callback $IMAGE -- sh -c 'cp $MOUNTPOINT/boot/initrd* . && chmod ugo+r initrd*'
+sudo mount-image-callback $IMAGE -- sh -xc 'cp -v $MOUNTPOINT/boot/initrd* . && chmod ugo+r initrd*'
 
 RAMDISK_ID=$(glance image-create --name "$IMAGE_NAME-ramdisk" --is-public True --container-format ari --disk-format ari < initrd* | grep ' id ' |  awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
 
