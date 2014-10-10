@@ -32,7 +32,7 @@ ssh_user = root
 allow_tenant_isolation = True
 build_interval = 1
 build_timeout = 500
-run_ssh=true
+run_ssh=false
 fixed_network_name=private
 
 # Network used for SSH connections. (string value)
