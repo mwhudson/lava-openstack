@@ -2,6 +2,8 @@
 
 . cloud/admin-openrc
 
+cd "$(mktemp -d)"
+
 IMAGE_NAME=linaro-minimal
 IMAGE_URL=http://people.linaro.org/~mwhudson/linaro-minimal-arm64-uec-psci.tar.gz
 IMAGE_NAME=trusty-server

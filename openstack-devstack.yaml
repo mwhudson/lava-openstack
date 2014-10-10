@@ -19,6 +19,8 @@ run:
     - "export LAVA_SLEEP_FOR_ACCESS LAVA_SLEEP_DURATION"
     - "apt-get update"
     - "apt-get -y install lsb-release git nmap vim pm-utils bridge-utils openssh-server subunit"
+    - 'cp tempest-run-in-tempest-dir.sh /home/ubuntu/run-in-tempest-dir.sh'
+    - "cd $(mktemp -d)"
     - "git clone -b arm64-trusty git://github.com/mwhudson/testing-openstack"
     - "cd testing-openstack"
     - "exec 1>/dev/tty"
@@ -28,8 +30,6 @@ run:
     - 'if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then'
     - '    sleep $LAVA_SLEEP_DURATION'
     - 'fi'
-    - "cd -"
-    - 'cp tempest-run-in-tempest-dir.sh /home/ubuntu/run-in-tempest-dir.sh'
     - 'set +x'
 
 params:
