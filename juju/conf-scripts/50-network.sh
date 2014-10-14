@@ -13,4 +13,4 @@ EOF
 chmod u+x /tmp/cloud-setup.sh
 
 juju scp /tmp/cloud-setup.sh nova-cloud-controller/0:
-juju run --unit nova-clouad-controller/0: ./cloud-setup.sh
+juju run --unit nova-cloud-controller/0: ./cloud-setup.sh
