@@ -4,8 +4,8 @@ mydir=$(dirname $(readlink -f $0))
 
 sudo apt-get install -y python-openstackclient
 
-./deploy-services.sh
+${mydir}/deploy-services.sh
 
-./configure-openstack.sh
+${mydir}/configure-openstack.sh
 
-./install-tempest.sh
+${mydir}/install-tempest.sh
