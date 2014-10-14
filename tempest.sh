@@ -10,5 +10,6 @@ if [ "$LAVA_RUN_TEMPEST" = "yes" ]; then
     sudo apt-get update
     sudo apt-get install -y subunit
     cat results.subunit | subunit2csv --no-passthrough > /home/ubuntu/output/results.csv
+    cat results.subunit | gzip > /home/ubuntu/output/results.subunit.gz
 fi
 tar -cvzf ~/output.tgz -C ~ output
