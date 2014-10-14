@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-. cloud/admin-openrc
+. ~/admin-openrc
 
 cd "$(mktemp -d)"
 

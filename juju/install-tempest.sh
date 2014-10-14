@@ -39,10 +39,6 @@ cat > ~/run-in-tempest-dir.sh <<EOF
 juju scp \$1 $host:script.sh
 juju ssh $host "cd tempest && LAVA_TESTS_TO_RUN=\$LAVA_TESTS_TO_RUN LAVA_RUN_TEMPEST=\$LAVA_RUN_TEMPEST ../script.sh"
 juju scp $host:output.tgz ~/
-if ip addr show dev br100; then
-    sudo ip addr del dev br100 192.168.1.1/24
-fi
-true
 EOF
 chmod u+x ~/run-in-tempest-dir.sh
 cat ~/run-in-tempest-dir.sh

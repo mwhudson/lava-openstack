@@ -1,12 +1,5 @@
 #!/bin/bash -ex
 
-CORES=$((1 + ((($(grep processor /proc/cpuinfo | wc -l) - 1) * 3) / 4)))
-
-agentState()
-{
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"machines\"][\"$1\"][\"agent-state\"]" 2> /dev/null
-}
-
 agentStateUnit()
 {
 	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"agent-state\"]" 2> /dev/null
@@ -28,20 +21,6 @@ unitAddress()
 	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"public-address\"]" 2> /dev/null
 }
 
-unitMachine()
-{
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"machine\"]" 2> /dev/null
-}
-
-waitForMachine()
-{
-	for machine; do
-		while [ "$(agentState $machine)" != started ]; do
-			sleep 5
-		done
-	done
-}
-
 waitForService()
 {
 	for service; do
@@ -54,11 +33,7 @@ waitForService()
 juju deploy --to 0     --config config.yaml nova-compute
 juju deploy --to lxc:0 --config config.yaml mysql
 
-mkdir -p charms/trusty
-bzr branch -r 59 lp:charms/trusty/rabbitmq-server charms/trusty/rabbitmq-server
-juju deploy  --to lxc:0 --repository=charms local:rabbitmq-server
-
-#juju deploy --to lxc:0                      rabbitmq-server
+juju deploy --to lxc:0                      rabbitmq-server
 juju deploy --to lxc:0 --config config.yaml keystone
 juju deploy --to lxc:0                      nova-cloud-controller
 juju deploy --to lxc:0                      glance
@@ -90,20 +65,13 @@ juju status
 sleep 240
 juju status
 
-mkdir -m 0700 -p cloud
 controller_address=$(unitAddress keystone 0)
-configOpenrc admin password admin http://$controller_address:5000/v2.0 RegionOne > cloud/admin-openrc
-configOpenrc ubuntu password ubuntu http://$controller_address:5000/v2.0 RegionOne > cloud/ubuntu-openrc
-chmod 0600 cloud/*
+configOpenrc admin password admin http://$controller_address:5000/v2.0 RegionOne > ~/admin-openrc
+configOpenrc ubuntu password ubuntu http://$controller_address:5000/v2.0 RegionOne > ~/ubuntu-openrc
 
 ./glance.sh
 
-. cloud/admin-openrc
-
-# adjust tiny image
-#nova flavor-delete m1.tiny
-#nova flavor-create m1.tiny 1 512 8 1
-
+. ~/admin-openrc
 
 # create ubuntu user
 keystone tenant-create --name ubuntu --description "Created by Juju"
@@ -118,7 +86,6 @@ nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
 # import key pair
 nova keypair-add --pub-key ~/.ssh/id_rsa.pub ubuntu-keypair
 
-machine=$(unitMachine nova-cloud-controller 0)
-juju scp cloud-setup.sh $machine:
-juju run --machine $machine ./cloud-setup.sh
+juju scp cloud-setup.sh nova-clouad-controller/0:
+juju run --unit nova-clouad-controller/0: ./cloud-setup.sh
 
