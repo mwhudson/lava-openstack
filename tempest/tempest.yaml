@@ -15,18 +15,8 @@ metadata:
 run:
   steps:
     - "resolvconf -u"
-    - "set -x"
     - "export LAVA_RUN_TEMPEST LAVA_TESTS_TO_RUN"
-    - "sudo -u ubuntu -E ~/run-in-tempest-dir.sh ./tempest.sh"
-    - "tar -xvzf ~ubuntu/output.tgz"
-    - "cd output"
-    - 'for i in *; do lava-test-run-attach "$i"; done'
-    - "python ../simplify-results.py results.csv all-tests.txt"
-    - "kill $(fuser 80/tcp 2>/dev/null) || true"
-    - "if ip addr show dev br100; then"
-    - "    ip addr del dev br100 192.168.1.1/24"
-    - "fi"
-    - "set +x"
+    - "./tempest/tempest-outer.sh"
 
 
 params:

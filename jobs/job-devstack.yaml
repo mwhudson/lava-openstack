@@ -79,12 +79,12 @@ actions:
     parameters:
       testdef_repos:
         - git-repo: 'http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-openstack-juju.git'
-          testdef: 'openstack-devstack.yaml'
+          testdef: 'devstack/openstack-devstack.yaml'
           parameters:
             LAVA_SLEEP_FOR_ACCESS: 'no'
             LAVA_SLEEP_DURATION: 36000
         - git-repo: 'http://git.linaro.org/git-ro/people/michael.hudson-doyle/lava-openstack-juju.git'
-          testdef: 'tempest.yaml'
+          testdef: 'tempest/tempest.yaml'
           parameters:
             LAVA_RUN_TEMPEST: 'yes'
             LAVA_TESTS_TO_RUN: ''
