@@ -22,7 +22,7 @@ run:
     - "cd output"
     - 'for i in *; do lava-test-run-attach "$i"; done'
     - "python ../simplify-results.py results.csv all-tests.txt"
-    - "kill $(fuser 80/tcp 2>/dev/null)"
+    - "kill $(fuser 80/tcp 2>/dev/null) || true"
     - "set +x"
 
 
