@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+cd $(dirname $(readlink -f $0))
+
 agentStateUnit()
 {
 	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"agent-state\"]" 2> /dev/null
@@ -64,28 +66,3 @@ waitForService rabbitmq-server nova-cloud-controller glance nova-compute swift-p
 juju status
 sleep 240
 juju status
-
-controller_address=$(unitAddress keystone 0)
-configOpenrc admin password admin http://$controller_address:5000/v2.0 RegionOne > ~/admin-openrc
-configOpenrc ubuntu password ubuntu http://$controller_address:5000/v2.0 RegionOne > ~/ubuntu-openrc
-
-./glance.sh
-
-. ~/admin-openrc
-
-# create ubuntu user
-keystone tenant-create --name ubuntu --description "Created by Juju"
-keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost
-keystone tenant-create --name ubuntu_alt --description "Created by Juju"
-keystone user-create --name ubuntu_alt --tenant ubuntu_alt --pass password --email juju_alt@localhost
-
-# configure security groups
-nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
-nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
-
-# import key pair
-nova keypair-add --pub-key ~/.ssh/id_rsa.pub ubuntu-keypair
-
-juju scp cloud-setup.sh nova-clouad-controller/0:
-juju run --unit nova-clouad-controller/0: ./cloud-setup.sh
-

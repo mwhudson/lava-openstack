@@ -2,13 +2,14 @@
 mydir=$(dirname $(readlink -f $0))
 
 . ~/ubuntu-openrc
-IMAGE_UUID=`glance image-list | awk '/trusty.*ami/{print $2}'`
+IMAGE_UUID=`cat ~/image-uuid'`
+
 access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
 secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
 
 unitAddress()
 {
-	juju status $1 | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"public-address\"]" 2> /dev/null
+	juju status $1 | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"public-address\"]" 2> /dev/null1
 }
 
 controller_address=$(unitAddress keystone 0)
@@ -33,6 +34,7 @@ testr init
 EOF
 juju scp /tmp/install.sh $host:
 juju ssh $host sh -x install.sh
+
 juju scp /tmp/tempest.conf $host:tempest/etc/
 cat > ~/run-in-tempest-dir.sh <<EOF
 #!/bin/sh -x
@@ -41,4 +43,5 @@ juju ssh $host "cd tempest && LAVA_TESTS_TO_RUN=\$LAVA_TESTS_TO_RUN LAVA_RUN_TEM
 juju scp $host:output.tgz ~/
 EOF
 chmod u+x ~/run-in-tempest-dir.sh
+
 cat ~/run-in-tempest-dir.sh

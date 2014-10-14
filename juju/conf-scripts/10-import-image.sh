@@ -1,5 +1,3 @@
-#!/bin/bash -xe
-
 . ~/admin-openrc
 
 cd "$(mktemp -d)"
@@ -39,3 +37,5 @@ IMAGE_UUID=$(glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-publi
 if [ -n "$COMMANDLINE" ]; then
     glance image-update $IMAGE_UUID --property os_command_line="$COMMANDLINE"
 fi
+
+echo $IMAGE_UUID > ~/image-uuid

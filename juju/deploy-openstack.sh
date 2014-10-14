@@ -1,8 +1,11 @@
 #!/bin/bash -ex
-sudo chown ubuntu:ubuntu cloud-sh
+
+mydir=$(dirname $(readlink -f $0))
+
 sudo apt-get install -y python-openstackclient
-cd cloud-sh
-./openstack.sh
-cp cloud/* ~/
-cd ../
+
+./deploy-services.sh
+
+./configure-openstack.sh
+
 ./install-tempest.sh
