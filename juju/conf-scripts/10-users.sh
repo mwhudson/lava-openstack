@@ -1,7 +1,3 @@
-unitAddress()
-{
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"public-address\"]" 2> /dev/null
-}
 
 configOpenrc()
 {
@@ -14,7 +10,7 @@ configOpenrc()
 		EOF
 }
 
-controller_address=$(unitAddress keystone 0)
+controller_address=$(unit-address keystone 0)
 # XXX would be better to read this out of `juju get keystone`
 configOpenrc admin password admin http://$controller_address:5000/v2.0 RegionOne > ~/admin-openrc
 

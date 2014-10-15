@@ -1,17 +1,14 @@
 #!/bin/bash -ex
 
+# This script (which runs as ubuntu) uses juju to deploy and relate
+# the services that make up openstack.
+
 cd $(dirname $(readlink -f $0))
-
-agentStateUnit()
-{
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"agent-state\"]" 2> /dev/null
-}
-
 
 waitForService()
 {
 	for service; do
-		while [ "$(agentStateUnit "$service" 0)" != started ]; do
+		while [ "$(agent-state-unit "$service" 0)" != started ]; do
 			sleep 5
 		done
 	done

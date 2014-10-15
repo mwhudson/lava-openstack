@@ -1,0 +1,4 @@
+#!/bin/bash
+service=$1
+unit=$2
+juju status ${service} | shyaml get-value services.${service}.units.${service}/${unit}.public-address
