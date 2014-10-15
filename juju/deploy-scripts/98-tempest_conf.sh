@@ -7,6 +7,4 @@
 
 cat /tmp/tempest-substs
 
-sed -f /tmp/tempest-substs
-    -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
-    deploy-data/tempest.conf.in > /tmp/tempest.conf
+sed -f /tmp/tempest-substs deploy-data/tempest.conf.in > /tmp/tempest.conf

@@ -1,3 +1,10 @@
+# This script takes the csv file as produced by subunit2csv and the
+# all-tests.txt file and prints out the test results in the format
+# expected by tempest.yaml (with some simplification to the test id).
+# It also makes sure that any tests that are not present in the
+# subunit stream are recorded as 'unknown' -- this usually seems to
+# happen when a setupClass method fails.
+
 import csv
 import re
 import sys

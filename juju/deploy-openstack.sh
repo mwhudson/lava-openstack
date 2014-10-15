@@ -11,5 +11,3 @@ for script in deploy-scripts/*.sh; do
     bash -ex "${script}"
 done
 
-# import key pair
-

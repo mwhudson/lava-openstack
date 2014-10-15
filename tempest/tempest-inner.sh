@@ -1,4 +1,8 @@
 #!/bin/bash -x
+
+# This script is run in the tempest directory by the
+# 'run-in-tempest-dir' script the deploy step created.
+
 if [ ! -d .testrepository ]; then
     testr init
 fi
