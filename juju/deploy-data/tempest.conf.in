@@ -69,16 +69,16 @@ auth_version = v2
 
 admin_domain_name = Default
 admin_tenant_name = admin
-admin_password = password
-admin_username = admin
+admin_password = XXX
+admin_username = XXX
 
-alt_tenant_name = ubuntu_alt
-alt_password = password
-alt_username = ubuntu_alt
+alt_tenant_name = XXX
+alt_password = XXX
+alt_username = XXX
 
-tenant_name = ubuntu
-password = password
-username = ubuntu
+tenant_name = XXX
+password = XXX
+username = XXX
 
 uri_v3 = XXX
 uri = XXX

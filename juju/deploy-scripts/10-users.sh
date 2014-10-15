@@ -26,6 +26,9 @@ configOpenrc()
 ADMIN_USER=$(keystone-config-val admin-user)
 ADMIN_PASS=$(keystone-config-val admin-password)
 
+tempest-set identity admin_username $ADMIN_USER
+tempest-set identity admin_password $ADMIN_PASS
+
 # The 'admin' tenant is hard-coded into the keystone charm.
 configOpenrc $ADMIN_USER $ADMIN_PASS admin > ~/admin-openrc
 
@@ -36,7 +39,14 @@ configOpenrc $ADMIN_USER $ADMIN_PASS admin > ~/admin-openrc
 
 keystone tenant-create --name ubuntu --description "Created by Juju"
 keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost
-keystone tenant-create --name ubuntu_alt --description "Created by Juju"
-keystone user-create --name ubuntu_alt --tenant ubuntu_alt --pass password --email juju_alt@localhost
+tempest-set identity tenant_name ubuntu
+tempest-set identity password password
+tempest-set identity username ubuntu
 
 configOpenrc ubuntu password ubuntu > ~/ubuntu-openrc
+
+keystone tenant-create --name ubuntu_alt --description "Created by Juju"
+keystone user-create --name ubuntu_alt --tenant ubuntu_alt --pass password --email juju_alt@localhost
+tempest-set identity alt_tenant_name ubuntu_alt
+tempest-set identity alt_password password
+tempest-set identity alt_username ubuntu_alt
