@@ -1,7 +1,7 @@
 # Set up the network by copying a script over to the cloud-controler
 # node and running it there.
 
-cat > /tmp/network-setup.sh <<EOF
+cat > /tmp/network-setup.sh <<\EOF
 #!/bin/bash -xe
 
 # Create a small network
