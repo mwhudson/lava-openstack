@@ -1,0 +1,10 @@
+openstack-juju.yaml defines a test that will install openstack with
+juju and configure tempest to run against it.  It uses the
+lava-mustang-juju helpers to configure juju.
+
+deploy-scripts contains the scripts that run to install openstack and
+configure tempest.
+
+deploy-data contains data the scripts reference.
+
+utils contains some utilities to make the scripts easier to read.
