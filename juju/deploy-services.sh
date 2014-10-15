@@ -7,21 +7,6 @@ agentStateUnit()
 	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"agent-state\"]" 2> /dev/null
 }
 
-configOpenrc()
-{
-	cat <<-EOF
-		export OS_USERNAME=$1
-		export OS_PASSWORD=$2
-		export OS_TENANT_NAME=$3
-		export OS_AUTH_URL=$4
-		export OS_REGION_NAME=$5
-		EOF
-}
-
-unitAddress()
-{
-	juju status | python -c "import yaml; import sys; print yaml.load(sys.stdin)[\"services\"][\"$1\"][\"units\"][\"$1/$2\"][\"public-address\"]" 2> /dev/null
-}
 
 waitForService()
 {
@@ -66,3 +51,4 @@ waitForService rabbitmq-server nova-cloud-controller glance nova-compute swift-p
 juju status
 sleep 240
 juju status
+
