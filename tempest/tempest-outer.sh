@@ -1,4 +1,5 @@
 #!/bin/bash -xe
+mydir=$(dirname $(readlink -f $0))
 sudo -u ubuntu -E ~/run-in-tempest-dir.sh ./tempest/tempest-inner.sh
 cd
 tar -xvzf output.tgz
@@ -6,7 +7,7 @@ cd output
 for i in *; do
     lava-test-run-attach "$i"
 done
-python $(readlink -f $0)/print-results.py results.csv all-tests.txt
+python ${mydir}/print-results.py results.csv all-tests.txt
 set +e
 kill $(fuser 80/tcp 2>/dev/null)
 if ip addr show dev br100; then
