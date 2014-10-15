@@ -1,28 +1,10 @@
-# This script (which runs as ubuntu) creates tempest.conf, creates a
-# container, installed tempest and its dependencies in that container
-# and creates a script to run another script inside said container.
+# Creates a container, installed tempest and its dependencies in that
+# container and creates a script to run another script inside said
+# container.
 #
 # All of this could/should be done by a tempest charm instead, but
 # that doesn't exist yet.
 
-mydir=$(dirname $(readlink -f $0))
-
-. ~/ubuntu-openrc
-IMAGE_UUID=`cat ~/image-uuid`
-
-access=$(keystone ec2-credentials-create | grep access | awk '{ print $4 }')
-secret=$(keystone ec2-credentials-get --access $access | grep secret | awk '{ print $4 }')
-
-controller_address=$(unit-address keystone 0)
-
-. ~/admin-openrc
-nova flavor-create m1.nano 42 128 0 1
-nova flavor-create m1.micro 84 192 0 1
-
-
-sed -e "s/@IMAGE_UUID@/$IMAGE_UUID/g" -e "s/@CONTROLLER_IP@/$controller_address/g" \
-    -e "s/@SECRET@/$secret/g" -e "s/@ACCESS@/$access/g" \
-    $mydir/../tempest.conf.in > /tmp/tempest.conf
 host=$(add-new-lxc)
 
 cat > /tmp/install.sh <<EOF

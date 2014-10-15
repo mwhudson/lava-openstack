@@ -1,5 +1,6 @@
-# This script (which runs as ubuntu) creates an appropriate
-# tempest.conf for the openstack cloud that we've just deployed.
+# Create an appropriate tempest.conf for the openstack cloud that
+# we've just deployed, using the values in calls to add-subst by
+# previous steps.
 #
 # This could/should be done by a tempest charm instead, but that
 # doesn't exist yet.

@@ -1,3 +1,6 @@
+# Create the ~/admin-openrc file, the ubuntu & ubuntu_alt users and
+# the ~/ubuntu-openrc file.
+
 juju get keystone > /tmp/keystone-config.yaml
 keystone-config-val () {
     cat /tmp/keystone-config.yaml | shyaml get-value settings.${1}.value
@@ -22,9 +25,13 @@ configOpenrc()
 ADMIN_USER=$(keystone-config-val admin-user)
 ADMIN_PASS=$(keystone-config-val admin-password)
 
+# The 'admin' tenant is hard-coded into the keystone charm.
 configOpenrc $ADMIN_USER $ADMIN_PASS admin > ~/admin-openrc
 
 . ~/admin-openrc
+
+# These should use add-subst rather than having an implicit dependence
+# between tempest.conf.in and what this script does.
 
 keystone tenant-create --name ubuntu --description "Created by Juju"
 keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost

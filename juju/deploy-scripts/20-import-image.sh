@@ -1,3 +1,5 @@
+# Import an image to use for tempest.
+
 . ~/admin-openrc
 
 cd "$(mktemp -d)"
