@@ -1,28 +1,23 @@
-#!/bin/bash -ex
-
 # This script (which runs as ubuntu) uses juju to deploy and relate
 # the services that make up openstack.
-
-cd $(dirname $(readlink -f $0))
 
 waitForService()
 {
 	for service; do
-		while [ "$(agent-state-unit "$service" 0)" != started ]; do
+		while [ "$(unit-agent-state "$service" 0)" != started ]; do
 			sleep 5
 		done
 	done
 }
 
-juju deploy --to 0     --config config.yaml nova-compute
-juju deploy --to lxc:0 --config config.yaml mysql
-
-juju deploy --to lxc:0                      rabbitmq-server
-juju deploy --to lxc:0 --config config.yaml keystone
-juju deploy --to lxc:0                      nova-cloud-controller
-juju deploy --to lxc:0                      glance
-juju deploy --to lxc:0 --config config.yaml swift-proxy
-juju deploy --to 0     --config config.yaml swift-storage
+juju deploy --to 0     --config deploy-data/config.yaml nova-compute
+juju deploy --to lxc:0 --config deploy-data/config.yaml mysql
+juju deploy --to lxc:0                                  rabbitmq-server
+juju deploy --to lxc:0 --config deploy-data/config.yaml keystone
+juju deploy --to lxc:0                                  nova-cloud-controller
+juju deploy --to lxc:0                                  glance
+juju deploy --to lxc:0 --config deploy-data/config.yaml swift-proxy
+juju deploy --to 0     --config deploy-data/config.yaml swift-storage
 
 # relation must be set first
 # no official way of knowing when this relation hook will fire

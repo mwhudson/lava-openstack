@@ -1,0 +1,6 @@
+These scripts are executed in order to install and configure an
+openstack cloud and then set up tempest to run against it.
+
+Some later steps depend on explicit and implicit things earlier steps
+do (e.g. create the ~/admin-openrc file).  That's all a bit ugly
+currently.

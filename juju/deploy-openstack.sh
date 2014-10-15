@@ -1,16 +1,15 @@
 #!/bin/bash -ex
 
-mydir=$(dirname $(readlink -f $0))
+cd $(dirname $(readlink -f $0))
 
-sudo apt-get install -y python-openstackclient python-virtualenv
+# This script (which runs as ubuntu) runs the scripts in deploy-scripts
+# (in alpabetical order) to set up the openstack deployed by
+# deploy-services.sh in readiness for running tempest.
 
-sudo cp $mydir/utils/* /usr/local/bin
-sudo virtualenv /usr/local/venv
-sudo /usr/local/venv/bin/pip install shyaml
-sudo ln -s /usr/local/venv/bin/shyaml /usr/local/bin
+for script in "deploy-scripts/*.sh"; do
+    echo "executing ${script} ..."
+    bash -ex ${script}
+done
 
-${mydir}/deploy-services.sh
+# import key pair
 
-${mydir}/configure-openstack.sh
-
-${mydir}/install-tempest.sh
