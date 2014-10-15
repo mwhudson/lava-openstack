@@ -9,7 +9,8 @@ keystone-config-val () {
 REGION=$(keystone-config-val region)
 PORT=$(keystone-config-val service-port)
 controller_address=$(unit-address keystone 0)
-add-subst CONTROLLER_IP $controller_address
+tempest-set identity uri http://$controller_address:$PORT/v2.0
+tempest-set identity uri_v3 http://$controller_address:$PORT/v3
 
 configOpenrc()
 {
@@ -30,8 +31,8 @@ configOpenrc $ADMIN_USER $ADMIN_PASS admin > ~/admin-openrc
 
 . ~/admin-openrc
 
-# These should use add-subst rather than having an implicit dependence
-# between tempest.conf.in and what this script does.
+# These should use tempest-set rather than having an implicit
+# dependence between tempest.conf.in and what this script does.
 
 keystone tenant-create --name ubuntu --description "Created by Juju"
 keystone user-create --name ubuntu --tenant ubuntu --pass password --email juju@localhost

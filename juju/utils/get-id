@@ -1,2 +1,3 @@
 #!/bin/bash
+# This is very much stolen from devstack
 grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }'

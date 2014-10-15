@@ -1,0 +1,33 @@
+#!/bin/bash
+# This is very much stolen from devstack
+function ini_has_option {
+    local file=$1
+    local section=$2
+    local option=$3
+    local line
+
+    line=$(sed -ne "/^\[$section\]/,/^\[.*\]/ { /^$option[ \t]*=/ p; }" "$file")
+    [ -n "$line" ]
+}
+
+file=/tmp/tempest.conf
+section=$1
+option=$2
+value=$3
+
+[[ -z $section || -z $option ]] && return
+
+if ! grep -q "^\[$section\]" "$file" 2>/dev/null; then
+    # Add section at the end
+    echo -e "\n[$section]" >>"$file"
+fi
+if ! ini_has_option "$file" "$section" "$option"; then
+    # Add it
+    sed -i -e "/^\[$section\]/ a\\
+$option = $value
+" "$file"
+else
+    sep=$(echo -ne "\x01")
+    # Replace it
+    sed -i -e '/^\['${section}'\]/,/^\[.*\]/ s'${sep}'^\('${option}'[ \t]*=[ \t]*\).*$'${sep}'\1'"${value}"${sep} "$file"
+fi

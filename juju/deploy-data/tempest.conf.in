@@ -8,10 +8,10 @@ lock_path = /tmp
 driver_enabled=false
 
 [boto]
-s3_url = http://@CONTROLLER_IP@:3333
-ec2_url = http://@CONTROLLER_IP@:8773/services/Cloud
-aws_access = @ACCESS@
-aws_secret = @SECRET@
+s3_url = XXX
+ec2_url = XXX
+aws_access = XXX
+aws_secret = XXX
 
 [cli]
 cli_dir = /usr/local/bin
@@ -19,12 +19,12 @@ has_manage=false
 
 [compute]
 ssh_connect_method = fixed
-flavor_ref_alt = @FLAVOR@
-flavor_ref = @FLAVOR_ALT@
+flavor_ref_alt = XXX
+flavor_ref = XXX
 image_alt_ssh_user = root
-image_ref_alt = @IMAGE_UUID@
+image_ref_alt = XXX
 image_ssh_user = root
-image_ref = @IMAGE_UUID@
+image_ref = XXX
 ssh_timeout = 500
 ip_version_for_ssh = 4
 network_for_ssh = private
@@ -80,8 +80,8 @@ tenant_name = ubuntu
 password = password
 username = ubuntu
 
-uri_v3 = http://@CONTROLLER_IP@:5000/v3/
-uri = http://@CONTROLLER_IP@:5000/v2.0/
+uri_v3 = XXX
+uri = XXX
 admin_role = Admin
 [identity-feature-enabled]
 [image]

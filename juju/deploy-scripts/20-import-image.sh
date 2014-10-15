@@ -40,4 +40,5 @@ if [ -n "$COMMANDLINE" ]; then
     glance image-update $IMAGE_UUID --property os_command_line="$COMMANDLINE"
 fi
 
-add-subst IMAGE_UUID $IMAGE_UUID
+tempest-set compute image_ref $IMAGE_UUID
+tempest-set compute image_ref_alt $IMAGE_UUID
