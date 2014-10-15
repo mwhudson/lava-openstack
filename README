@@ -1,0 +1,19 @@
+LAVA bits to deploy openstack and run tempest
+=============================================
+
+This repository contains LAVA test defintions that deploy openstack
+(in more than one way) and then run the 'tempest' integration suite
+against the deployed openstack.
+
+Currently openstack can be deployed by devstack and by juju -- see the
+folders called 'devstack' and 'juju' for more.  'tempest' contains the
+test defintion that runs tempest.  'jobs' contains sample job files
+(which need to be submitted with my 'sj' tool:
+https://github.com/mwhudson/sj).
+
+The contract between the 'deploy' and 'tempest' step is that the
+deploy step creates a script ~/run-in-tempest-dir.sh that takes the
+path of a script as an argument and runs that script with the pwd set
+to a directory containing the tempest source (and an appropriately set
+up etc/tempest.conf).  This script can put files into ~/output.tgz and
+these will be attached to the LAVA test run.

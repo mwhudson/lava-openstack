@@ -1,10 +1,5 @@
-#device_group:
-#  - role: machine
-#    count: 2
-#    device_type: mustang
-#
 device_type: mustang
-job_name: mwhudson-packagedstack
+job_name: mwhudson-jujustack
 timeout: 30000
 log_level: INFO
 
