@@ -20,5 +20,5 @@ set +e
 
 kill $(fuser 80/tcp 2>/dev/null)
 if ip addr show dev br100; then
-    ip addr del dev br100 192.168.1.0/24
+    ip addr del dev br100 192.168.1.1/24
 fi
