@@ -1,0 +1,2 @@
+#!/bin/bash
+grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }'

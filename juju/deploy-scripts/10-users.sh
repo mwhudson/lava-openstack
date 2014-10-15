@@ -6,6 +6,7 @@ keystone-config-val () {
 REGION=$(keystone-config-val region)
 PORT=$(keystone-config-val service-port)
 controller_address=$(unit-address keystone 0)
+add-subst CONTROLLER_IP $controller_address
 
 configOpenrc()
 {

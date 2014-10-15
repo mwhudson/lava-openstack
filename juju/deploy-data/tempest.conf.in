@@ -19,8 +19,8 @@ has_manage=false
 
 [compute]
 ssh_connect_method = fixed
-flavor_ref_alt = 84
-flavor_ref = 42
+flavor_ref_alt = @FLAVOR@
+flavor_ref = @FLAVOR_ALT@
 image_alt_ssh_user = root
 image_ref_alt = @IMAGE_UUID@
 image_ssh_user = root

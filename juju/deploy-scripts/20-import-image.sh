@@ -21,21 +21,21 @@ IMG_PROPERTY=" --property hw_machine_type=virt  --property hw_cdrom_bus=virtio"
 sudo mount-image-callback --verbose $IMAGE -- sh -xc 'cp -v $MOUNTPOINT/boot/initrd* . && chmod ugo+r initrd*' || true
 
 if [ -e initrd* ]; then
-    RAMDISK_ID=$(glance image-create --name "$IMAGE_NAME-ramdisk" --is-public True --container-format ari --disk-format ari < initrd* | grep ' id ' |  awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
+    RAMDISK_ID=$(glance image-create --name "$IMAGE_NAME-ramdisk" --is-public True --container-format ari --disk-format ari < initrd* | get-id)
     IMG_PROPERTY="$IMG_PROPERTY --property ramdisk_id=$RAMDISK_ID"
     COMMANDLINE="root=LABEL=cloudimg-rootfs rw rootwait console=ttyAMA0"
 else
     COMMANDLINE=""
 fi
 
-KERNEL_ID=$(glance image-create --name "$IMAGE_NAME-kernel" --is-public True --container-format aki --disk-format aki < "$KERNEL" | grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
+KERNEL_ID=$(glance image-create --name "$IMAGE_NAME-kernel" --is-public True --container-format aki --disk-format aki < "$KERNEL" | get-id)
 
 IMG_PROPERTY="$IMG_PROPERTY --property kernel_id=$KERNEL_ID"
 
-IMAGE_UUID=$(glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-public True --container-format ami --disk-format ami < "${IMAGE}" | grep ' id ' | awk -F'[ \t]*\\|[ \t]*' '{ print $3 }')
+IMAGE_UUID=$(glance image-create --name "${IMAGE_NAME}" $IMG_PROPERTY --is-public True --container-format ami --disk-format ami < "${IMAGE}" | get-id)
 
 if [ -n "$COMMANDLINE" ]; then
     glance image-update $IMAGE_UUID --property os_command_line="$COMMANDLINE"
 fi
 
-echo $IMAGE_UUID > ~/image-uuid
+add-subst IMAGE_UUID $IMAGE_UUID
