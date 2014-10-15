@@ -18,7 +18,7 @@ EOF
 juju scp /tmp/install.sh $host:
 juju ssh $host sh -x install.sh
 
-grep -n XXX /tmp/tempest.conf
+grep -n XXX /tmp/tempest.conf || true
 
 juju scp /tmp/tempest.conf $host:tempest/etc/
 cat > ~/run-in-tempest-dir.sh <<EOF
