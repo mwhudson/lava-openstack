@@ -36,4 +36,3 @@ if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
 fi
 
 sudo ntpdate ntp.ubuntu.com
-
