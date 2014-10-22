@@ -5,14 +5,6 @@ TOP_DIR=$(cd $(dirname "$0") && pwd)
 # Get OpenStack admin auth
 source $TOP_DIR/openrc admin admin
 
-# Is this necessary?
-# create SSH key if not present
-echo "Create Linaro SSH keypair"
-KEY_NAME=LinaroKey
-if [[ -z $(nova keypair-list | grep $KEY_NAME) ]]; then
-    nova keypair-add --pub-key ~/.ssh/id_rsa.pub ${KEY_NAME}
-fi
-
 # set properties of image to run as virt model
 echo "Update image with properties required to run as a mach-virt guest"
 IMAGE_UUID=`glance image-list | awk '/linaro.*ami/{print $2}'`
