@@ -30,6 +30,9 @@ cd ${DEVSTACK_ROOT}
 ./stack.sh
 EOF
 
+cd /opt/stack/tempest
+git fetch https://review.openstack.org/openstack/tempest refs/changes/65/130665/2 && GIT_EDITOR=cat git merge FETCH_HEAD
+
 sleep 60
 if [ "$LAVA_SLEEP_FOR_ACCESS" = "yes" ]; then
     sleep $LAVA_SLEEP_DURATION
