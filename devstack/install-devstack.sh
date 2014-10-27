@@ -11,7 +11,7 @@ d=$(mktemp -d)
 chmod -R a+rX $d
 cd $d
 
-git clone git://github.com/mwhudson/devstack.git -b arm64-trusty-icehouse
+git clone git://github.com/mwhudson/devstack.git -b arm64-master
 
 cp $mydir/local.sh ./devstack
 cp $mydir/local.conf ./devstack
