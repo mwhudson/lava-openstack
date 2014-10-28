@@ -31,6 +31,8 @@ cd ${DEVSTACK_ROOT}
 EOF
 
 cd /opt/stack/tempest
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
 git fetch https://review.openstack.org/openstack/tempest refs/changes/65/130665/2 && GIT_EDITOR=cat git merge FETCH_HEAD
 
 sleep 60
