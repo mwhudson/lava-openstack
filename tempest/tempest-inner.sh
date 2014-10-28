@@ -10,7 +10,7 @@ mkdir ~/output
 cp etc/tempest.conf ~/output/tempest_conf.txt
 if [ "$LAVA_RUN_TEMPEST" = "yes" ]; then
     testr list-tests $LAVA_TESTS_TO_RUN | tail -n +6 > /home/ubuntu/output/all-tests.txt
-    OS_TEST_TIMEOUT=1200 tox -eall -- --load-list=/home/ubuntu/output/all-tests.txt
+    OS_TEST_TIMEOUT=1200 tox -eall -- --concurrency=4 --load-list=/home/ubuntu/output/all-tests.txt
     testr last --subunit > results.subunit
     sudo apt-get update
     sudo apt-get install -y subunit
